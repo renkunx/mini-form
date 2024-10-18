@@ -14,7 +14,7 @@ console.log('开始初始化数据库...')
 const INIT_DB_FILE = path.join(__dirname, './cAuth.sql')
 
 const DB = require('knex')({
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
         host: config.host,
         port: config.port,

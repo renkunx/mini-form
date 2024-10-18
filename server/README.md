@@ -41,7 +41,7 @@ npm start
 ## 项目结构
 
 ```
-koa-weapp-demo
+koa-weapp
 ├── README.md
 ├── app.js
 ├── controllers
