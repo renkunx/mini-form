@@ -1,5 +1,5 @@
 const fs = require('fs')
-const qcloud = require('wafer-node-sdk')
+const qcloud = require('@renkunx/wafer-node-sdk')
 
 // 获取基础配置
 const configs = require('./config')
