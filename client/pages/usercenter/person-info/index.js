@@ -1,4 +1,4 @@
-// pages/chat/chat.js
+// pages/usercenter/person-info/index.js
 Page({
 
   /**

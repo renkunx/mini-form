@@ -46,3 +46,4 @@ sdk.config.json
 # ignore local config
 server/config.local.js
 uploads
+client/miniprogram_npm

@@ -1,4 +1,4 @@
-// pages/chat/chat.js
+// pages/usercenter/address/edit/index.js
 Page({
 
   /**

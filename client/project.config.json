@@ -1,7 +1,6 @@
 {
-  "appid": "wx013596d95fe13be5",
   "compileType": "miniprogram",
-  "libVersion": "3.6.2",
+  "libVersion": "trial",
   "packOptions": {
     "ignore": [],
     "include": []
@@ -18,11 +17,16 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "urlCheck": true,
+    "useStaticServer": false,
+    "ignoreDevUnusedFiles": true,
+    "ignoreUploadUnusedFiles": true
   },
   "condition": {},
   "editorSetting": {
-    "tabIndent": "insertSpaces",
+    "tabIndent": "auto",
     "tabSize": 2
-  }
+  },
+  "appid": "wxed0ba79d3b393cab"
 }
