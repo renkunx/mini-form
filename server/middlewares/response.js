@@ -4,9 +4,17 @@ const debug = require('debug')('koa-weapp')
  * 响应处理模块
  */
 module.exports = async function (ctx, next) {
+
     try {
         // 调用下一个 middleware
         await next()
+
+        // 如果已经设置了特定的Content-Type（如PDF），则不做处理
+        if (ctx.response.header['content-disposition'] && 
+            ctx.response.header['content-disposition'].includes('.pdf')) {
+            ctx.set('Content-Type', 'application/pdf');
+            return;
+        }
 
         // 处理响应结果
         // 如果直接写入在 body 中，则不作处理

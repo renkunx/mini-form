@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 540px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+        .value {
+            text-align: right;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>个人信息</h1>
+        <div class="info-item">
+            <span class="label">姓名：</span>
+            <span class="value">{{name}}</span>
+        </div>
+        <div class="info-item">
+            <span class="label">联系方式：</span>
+            <span class="value">{{telphone}}</span>
+        </div>
+        <div class="info-item">
+            <span class="label">家庭住址：</span>
+            <span class="value">{{address}}</span>
+        </div>
+        <div class="info-item">
+            <span class="label">房屋面积：</span>
+            <span class="value">{{area}}m²</span>
+        </div>
+        <div class="info-item">
+            <span class="label">贷款金额：</span>
+            <span class="value">{{amount}}元</span>
+        </div>
+        <div class="info-item">
+            <span class="label">推荐人：</span>
+            <span class="value">{{recommender}}</span>
+        </div>
+    </div>
+</body>
+</html>
