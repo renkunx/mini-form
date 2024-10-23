@@ -69,6 +69,9 @@ router.post('/message', controllers.message.post)
 router.post('/pdf', controllers.pdf.generatePDFFromTemplate)
 router.get('/pdf', controllers.pdf.getPDF)
 
+// 添加获取首页数据的路由
+router.get('/home', controllers.home.get)
+
 // 设置为匹配到的路由返回404
 router.all('/*', async (ctx) => {
     ctx.status = 404;
