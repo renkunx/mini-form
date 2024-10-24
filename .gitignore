@@ -47,3 +47,4 @@ sdk.config.json
 server/config.local.js
 uploads
 client/miniprogram_npm
+server/attachment
