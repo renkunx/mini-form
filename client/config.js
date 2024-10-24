@@ -3,7 +3,7 @@
  */
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
-var host = 'https://7131-103-36-25-6.ngrok-free.app';
+var host = 'http://localhost:5757';
 
 var config = {
 
@@ -21,7 +21,13 @@ var config = {
         tunnelUrl: `${host}/weapp/tunnel`,
 
         // 上传图片接口
-        uploadUrl: `${host}/weapp/upload`
+        uploadUrl: `${host}/weapp/upload`,
+
+        // 保存表单 post 获取 get
+        saveFormUrl: `${host}/weapp/info`,
+
+        // 获取首页数据
+        homeUrl: `${host}/weapp/home`
     }
 };
 

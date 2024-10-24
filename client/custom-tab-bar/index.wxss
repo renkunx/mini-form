@@ -15,11 +15,36 @@
 .custom-item {
   width: 212rpx;
   height: 212rpx;
-  position: absolute;
-  top: -100%;
   border-radius: 50%;
   overflow: hidden;
   z-index: 100;
-  border: 1px solid;
+  border: 3px solid #999999;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-item .text {
+  font-size: 20rpx;
+}
+
+.custom-item-hover .text {
+  font-size: 20rpx;
+}
+
+.custom-item-hover {
+  width: 212rpx;
+  height: 212rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 100;
+  border: 3px solid;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-color: var(--td-tab-bar-active-color, var(--td-brand-color, var(--td-primary-color-7, #0052d9)));
 }

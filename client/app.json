@@ -1,34 +1,35 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/chat/chat",
-        "pages/usercenter/index",
-        "pages/usercenter/person-info/index",
-        "pages/usercenter/address/list/index",
-        "pages/usercenter/address/edit/index"
-    ],
-    "tabBar": {
-      "custom": true,
-      "color": "#666666",
-      "selectedColor": "#FF5F15",
-      "backgroundColor": "#ffffff",
-      "borderStyle": "black",
-      "list": [
-        {
-          "pagePath": "pages/index/index",
-          "text": "首页"
-        },
-        {
-          "pagePath": "pages/usercenter/index",
-          "text": "我的"
-        },
-        {
-          "pagePath": "pages/chat/chat",
-          "text": "购物车"
-        }
-      ]
-    },
-    "lazyCodeLoading": "requiredComponents",
+  "pages": [
+    "pages/home/home",
+    "pages/chat/chat",
+    "pages/usercenter/index",
+    "pages/usercenter/address/list/index",
+    "pages/usercenter/address/edit/index",
+    "pages/index/index",
+    "pages/404/index"
+  ],
+  "tabBar": {
+    "custom": true,
+    "color": "#666666",
+    "selectedColor": "#FF5F15",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/usercenter/index",
+        "text": "我的"
+      },
+      {
+        "pagePath": "pages/usercenter/address/edit/index",
+        "text": "提交"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
   "usingComponents": {},
   "window": {
     "backgroundTextStyle": "light",

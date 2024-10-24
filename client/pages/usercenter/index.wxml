@@ -8,9 +8,9 @@
   bind:gotoUserEditPage="gotoUserEditPage"
 />
 <view class="content-wrapper">
-  <view class="order-group-wrapper">
+  <!-- <view class="order-group-wrapper">
     <t-order-group orderTagInfos="{{orderTagInfos}}" bind:onClickTop="jumpAllOrder" bind:onClickItem="jumpNav" />
-  </view>
+  </view> -->
   <view wx:for="{{menuData}}" wx:key="item" class="cell-box">
     <t-cell-group>
       <t-cell

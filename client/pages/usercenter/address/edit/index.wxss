@@ -1,0 +1,123 @@
+page {
+  background-color: #f5f5f5;
+  margin-top: 150rpx;
+  padding-bottom: 220rpx;
+}
+page .divider-line {
+  width: 100%;
+  height: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.header-placeholder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 480rpx;
+  background-image: url('https://i.haidao.tech/2024/10/584c85752a577f404afe76c4e6acfdb1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 0 24rpx;
+}
+.address-flex-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+.address-detail {
+  font-size: 30rpx;
+}
+.address-detail-wx-location {
+  background: #fff;
+  padding: 24rpx 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.address-detail-wx-arrow {
+  align-items: flex-end;
+}
+
+.form-cell .t-cell__title {
+  width: 144rpx;
+  padding-right: 32rpx;
+  flex: none !important;
+}
+
+.textarea__wrapper {
+  width: 100%;
+}
+
+.textarea__wrapper .t-textarea {
+  padding: 0 !important;
+}
+
+.form-address {
+  position: relative;
+  margin: 0 30rpx;
+  border-radius: 16rpx 16rpx 0 0;
+  overflow: hidden;
+}
+
+.form-address .map {
+  font-size: 48rpx !important;
+  margin-left: 20rpx;
+  color: #9d9d9f;
+}
+
+.address__tag {
+  justify-content: flex-start !important;
+}
+
+.form-address .label-list {
+  background: #f5f5f5;
+  color: #333;
+  min-width: 100rpx;
+  margin-right: 32rpx;
+  font-size: 26rpx;
+  border: 2rpx solid transparent;
+  width: auto;
+}
+.form-address .label-list::after {
+  content: none;
+}
+.form-address .active-btn {
+  color: #fa4126;
+  border: 2rpx solid #fa4126;
+  background: rgba(255, 95, 21, 0.04);
+}
+.form-address .active-btn::after {
+  border: 4rpx solid #ff5f15;
+}
+
+.submit {
+  box-sizing: border-box;
+  padding: 32rpx;
+}
+.submit .btn-submit-address {
+  background: #fa4126 !important;
+  color: #fff !important;
+}
+
+.dialog__button-confirm {
+  color: #fa4126 !important;
+}
+
+.form-address .form-content {
+  --td-input-vertical-padding: 0;
+}
+
+.dialog__input {
+  margin-top: 32rpx;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  --td-input-vertical-padding: 12px;
+  --td-input-bg-color: #f3f3f3;
+}
+
+.contact {
+  text-align: center;
+  width: 350rpx;
+  margin: 0 auto;
+  color: #999999;
+}

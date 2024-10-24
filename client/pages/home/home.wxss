@@ -1,0 +1,73 @@
+page {
+  padding-bottom: 150rpx;
+}
+
+.block {
+  display: block;
+  margin-bottom: 32rpx;
+}
+
+.grid-item__image {
+  --td-button-medium-icon-font-size: 48rpx;
+
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--td-bg-color-secondarycontainer);
+  border-radius: 12rpx;
+}
+
+.ad-content2 {
+  margin: 20rpx;
+  display: flex;
+}
+
+.ad-content2 .ad-content2-left {
+  height: 900rpx;
+  width: 48%;
+  filter: blur(10);
+  background-image: url('https://tdesign.gtimg.com/mobile/demos/swiper1.png');
+  margin-right: 2%;
+}
+
+.ad-content2-right__top {
+  height: 440rpx;
+  width: 100%;
+  background-image: url('https://tdesign.gtimg.com/mobile/demos/swiper2.png');
+}
+
+.ad-content2-right {
+  width: 50%;
+}
+.ad-content2-right__bottom {
+  margin-top: 20rpx;
+  height: 440rpx;
+  width: 100%;
+  background-image: url('https://tdesign.gtimg.com/mobile/demos/swiper1.png');
+}
+.ad-content2__content {
+  text-align: center;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-position: center;
+  background-size: cover;
+}
+.ad-content2__content .content-title {
+  font-size: 72rpx;
+  font-weight: 800;
+}
+.ad-content2__content .content-desc {
+  font-size: 32rpx;
+}
+
+.external-class-content {
+  color: #fff;
+  background-color: #0052d9;
+  font-weight: 400;
+}

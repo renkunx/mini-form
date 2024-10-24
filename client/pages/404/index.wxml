@@ -1,0 +1,4 @@
+<view>
+  <t-image width="300rpx" height="300rpx" src="https://tdesign.gtimg.com/mobile/demos/swiper1.png" mode="aspectFill"></t-image>
+  <view class="description">正在建设中...</view>
+</view>

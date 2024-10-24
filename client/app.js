@@ -11,5 +11,9 @@ App({
      */
     onLaunch() {
         qcloud.setLoginUrl(config.service.loginUrl);
+    },
+    globalData: {
+      userInfo: null,
+      logged: false
     }
 });

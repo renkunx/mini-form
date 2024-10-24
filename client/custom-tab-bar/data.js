@@ -2,17 +2,17 @@ export default [
   {
     icon: 'home',
     text: '首页',
-    url: 'pages/index/index',
+    url: 'pages/home/home',
   },
   {
-    icon: 'person',
+    icon: 'user',
     text: '我的',
     url: 'pages/usercenter/index',
-    custum: true
+    custom: true
   },
   {
-    icon: 'cart',
-    text: '购物车',
-    url: 'pages/chat/chat',
+    icon: 'sticky-note',
+    text: '提交',
+    url: 'pages/usercenter/address/edit/index',
   }
 ];

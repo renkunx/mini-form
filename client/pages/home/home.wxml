@@ -1,0 +1,33 @@
+<t-image src="{{adTop}}" mode="aspectFill" width="750rpx" height="200" aria-label="品牌形象展示"></t-image>
+<t-grid class="block">
+  <t-grid-item text="{{item.name}}" image="slot" wx:for="{{mrchList}}" wx:key="index">
+    <view slot="image" class="grid-item__image">
+      <t-avatar class="avatar-example" t-class-content="external-class-content" aria-label="字符头像" shape="round">商户</t-avatar>
+    </view>
+  </t-grid-item>
+</t-grid>
+<t-swiper
+  current="{{current}}"
+  autoplay="{{autoplay}}"
+  duration="{{duration}}"
+  interval="{{interval}}"
+  list="{{swiperList}}"
+  navigation="{{ { type: 'dots-bar' } }}"
+/>
+<view class="ad-content2">
+  <view class="ad-content2-left ad-content2__content">
+    <view class="content-title">现代风</view>
+    <view class="content-desc">现代风描述</view>
+  </view>
+  <view class="ad-content2-right">
+    <view class="ad-content2-right__top ad-content2__content">
+      <view class="content-title">现代风1</view>
+      <view class="content-desc">现代风1描述</view>
+    </view>
+    <view class="ad-content2-right__bottom ad-content2__content">
+      <view class="content-title">现代风2</view>
+      <view class="content-desc">现代风2描述</view>
+    </view>
+  </view>
+</view>
+<t-image src="https://tdesign.gtimg.com/mobile/demos/swiper2.png" height="200rpx" width="750rpx" mode="cover"></t-image>

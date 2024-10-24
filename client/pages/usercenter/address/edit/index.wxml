@@ -1,2 +1,129 @@
-<!--pages/usercenter/address/edit/index.wxml-->
-<text>pages/usercenter/address/edit/index.wxml</text>
+<view class="address-detail">
+  <view class=".header-placeholder"></view>
+  <view class="divider-line" />
+  <view class="form-address">
+    <form class="form-content">
+      <t-cell-group>
+        <t-cell class="form-cell" t-class-title="t-cell-title" title="姓名" t-class-note="t-cell-note">
+          <t-input
+            class="t-input"
+            slot="note"
+            t-class="field-text"
+            borderless
+            data-item="name"
+            maxlength="20"
+            type="text"
+            value="{{locationState.name}}"
+            placeholder="您的姓名"
+            bind:change="onInputValue"
+          />
+        </t-cell>
+        <t-cell class="form-cell" t-class-title="t-cell-title" title="手机号">
+          <t-input
+            slot="note"
+            class="t-input"
+            t-class="field-text"
+            borderless
+            type="number"
+            value="{{locationState.tel}}"
+            maxlength="11"
+            placeholder="联系您的手机号"
+            bind:change="onInputValue"
+            data-item="tel"
+          />
+        </t-cell>
+        <t-cell class="form-cell" t-class-title="t-cell-title" title="地区">
+          <t-input
+            slot="note"
+            class="t-input"
+            t-class="field-text"
+            borderless
+            placeholder="省/市/区"
+            data-item="address"
+            value="{{locationState.provinceName ? locationState.provinceName+'/':'' }}{{locationState.cityName ? locationState.cityName+'/':''}}{{locationState.districtName}}"
+            catch:tap="onPickArea"
+            disabled
+          />
+          <t-icon slot="right-icon" t-class="map" name="location" catch:tap="onSearchAddress" />
+        </t-cell>
+        <t-cell class="form-cell" t-class-title="t-cell-title" title="详细地址" bordered="{{false}}">
+          <view slot="note" class="textarea__wrapper">
+            <t-textarea
+              slot="note"
+              type="text"
+              value="{{locationState.detailAddress}}"
+              placeholder="门牌号等(例如:10栋1001号)"
+              autosize
+              bind:change="onInputValue"
+              data-item="detailAddress"
+            />
+          </view>
+        </t-cell>
+      </t-cell-group>
+      <view class="divider-line" />
+      <t-cell-group>
+        <t-cell class="form-cell" t-class-title="t-cell-title" title="房屋面积" t-class-note="t-cell-note">
+          <t-input
+            class="t-input"
+            slot="note"
+            t-class="field-text"
+            borderless
+            data-item="area"
+            suffix="m²"
+            align="right"
+            type="number"
+            value="{{locationState.area}}"
+            placeholder="100"
+            bind:change="onInputValue"
+          />
+        </t-cell>
+        <t-cell class="form-cell" t-class-title="t-cell-title" title="装修预算" t-class-note="t-cell-note">
+          <t-input
+            class="t-input"
+            slot="note"
+            t-class="field-text"
+            borderless
+            data-item="budget"
+            suffix="元"
+            align="right"
+            type="number"
+            value="{{locationState.budget}}"
+            placeholder="您的装修预算"
+            bind:change="onInputValue"
+          />
+        </t-cell>
+      </t-cell-group>
+      <view class="submit">
+        <t-button shape="round" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 提交 </t-button>
+      </view>
+    </form>
+    <view class="contact">
+      <t-image shape="round" src="{{contactUrl}}" width="150" height="150" />
+      <view class="divider-line" />
+      <view>XX银行装修分期咨询 （扫描添加专属客户经理）</view>
+    </view>
+  </view>
+  <t-cascader
+    data-item="address"
+    data-type="1"
+    visible="{{areaPickerVisible}}"
+    theme="tab"
+    options="{{areaData}}"
+    value="{{locationState.districtCode}}"
+    title="选择地区"
+    bind:change="onInputValue"
+  ></t-cascader>
+</view>
+<t-dialog
+  visible="{{visible}}"
+  t-class-confirm="dialog__button-confirm"
+  t-class-cancel="dialog__button-cancel"
+  title="填写标签名称"
+  confirm-btn="确定"
+  cancel-btn="取消"
+  bind:confirm="confirmHandle"
+  bind:cancel="cancelHandle"
+>
+  <t-input slot="content" class="dialog__input" model:value="{{labelValue}}" placeholder="请输入标签名称" borderless />
+</t-dialog>
+<t-toast id="t-toast" />

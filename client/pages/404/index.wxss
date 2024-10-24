@@ -1,0 +1,11 @@
+page {
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 300rpx;
+}
+
+.description {
+  margin-top: 20rpx;
+  font-size: 30rpx;
+  color:#999999;
+}
