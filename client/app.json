@@ -6,7 +6,9 @@
     "pages/usercenter/address/list/index",
     "pages/usercenter/address/edit/index",
     "pages/index/index",
-    "pages/404/index"
+    "pages/404/index",
+    "pages/usercenter/person-info/index",
+    "pages/usercenter/name-edit/index"
   ],
   "tabBar": {
     "custom": true,

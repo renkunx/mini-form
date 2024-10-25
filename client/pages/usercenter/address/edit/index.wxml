@@ -92,9 +92,10 @@
             bind:change="onInputValue"
           />
         </t-cell>
+        <t-cell title="推荐人" arrow hover bind:click="onRecommenderPicker" note="{{locationState.recommenderName}}" />
       </t-cell-group>
       <view class="submit">
-        <t-button shape="round" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 提交 </t-button>
+        <t-button size="large" theme="primary" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 提交 </t-button>
       </view>
     </form>
     <view class="contact">
@@ -127,3 +128,17 @@
   <t-input slot="content" class="dialog__input" model:value="{{labelValue}}" placeholder="请输入标签名称" borderless />
 </t-dialog>
 <t-toast id="t-toast" />
+<t-picker
+  visible="{{recommenderVisible}}"
+  value="{{locationState.recommender}}"
+  data-key="recommender"
+  title="选择推荐人"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  usingCustomNavbar
+  bindchange="onPickerChange"
+  bindpick="onColumnChange"
+  bindcancel="onPickerCancel"
+>
+  <t-picker-item  options="{{recommenders}}"></t-picker-item>
+</t-picker>

@@ -1,10 +1,8 @@
-import {
-  fetchUserCenter
-} from '../../services/usercenter/fetchUsercenter';
 import Toast from 'tdesign-miniprogram/toast/index';
 // 引入 QCloud 小程序增强 SDK
 var qcloud = require('../../vendor/wafer2-client-sdk/index');
 const { showBusy, showModel, showSuccess } = require('../../utils/utils')
+const app = getApp()
 const menuData = [
   [{
     title: '历史提交',
@@ -16,7 +14,7 @@ const menuData = [
     title: '清除缓存',
     tit: '',
     url: '',
-    type: 'help-center',
+    type: 'clear-storage',
   },{
       title: '帮助中心',
       tit: '',
@@ -45,7 +43,7 @@ const getDefaultData = () => ({
   currAuthStep: 1,
   showKefu: true,
   versionNo: '',
-  logged: false
+  logged: false || app.globalData.logged
 });
 
 Page({
@@ -63,7 +61,7 @@ Page({
   },
 
   init() {
-    !this.logged && this.loginWX();
+    !this.data.logged && this.loginWX();
   },
 
   onClickCell({
@@ -90,6 +88,13 @@ Page({
           icon: '',
           duration: 1000,
         });
+        break;
+      }
+      case 'clear-storage': {
+        wx.clearStorage()
+        wx.showToast({
+          title: '清除成功',
+        })
         break;
       }
       case 'history': {
@@ -175,7 +180,6 @@ Page({
   loginWX(){
     showBusy('正在登录');
     const session = qcloud.Session.get()
-    const app = getApp()
     if (session) {
       // 第二次登录
       // 或者本地已经有登录态

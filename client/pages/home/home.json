@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "首页",
   "usingComponents": {
     "t-image":"tdesign-miniprogram/image/image",
     "t-swiper": "tdesign-miniprogram/swiper/swiper",

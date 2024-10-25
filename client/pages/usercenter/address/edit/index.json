@@ -12,6 +12,8 @@
     "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "t-switch": "tdesign-miniprogram/switch/switch",
     "t-cascader": "tdesign-miniprogram/cascader/cascader",
-    "t-image":"tdesign-miniprogram/image/image"
+    "t-image":"tdesign-miniprogram/image/image",
+    "t-picker":"tdesign-miniprogram/picker/picker",
+    "t-picker-item":"tdesign-miniprogram/picker-item/picker-item"
   }
 }

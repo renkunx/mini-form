@@ -25,6 +25,8 @@ Page({
       provinceCode: '',
       provinceName: '',
       detailAddress:'',
+      recommender:'',
+      recommenderName:'',
     },
     areaData: areaData,
     areaPickerVisible: false,
@@ -32,10 +34,16 @@ Page({
     visible: false,
     labelValue: '',
     columns: 3,
-    contactUrl:'https://i.haidao.tech/2024/10/b7560e96407654b2d91da4a09ddae590.png',
+    contactUrl:'https://i.haidao.tech/mini-form%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A6%96%E9%A1%B5/basicprofile.png',
     privateData: {
       verifyTips: '',
     },
+    recommenderVisible: false,
+    recommenders: [
+      {label: '商户一',value: 1123123},
+      {label: '商户2',value: 11231232},
+      {label: '商户2',value: 11231233},
+    ]
   },
   onShow() {
     this.init()
@@ -65,10 +73,9 @@ Page({
         user_id: app.globalData.userInfo.openId,
       },
       success(res){
-        debugger
         if(res.data.code === 0){
           const {city_code, city_name, district_code, district_name,
-          name, tel, area, budget, province_code, province_name, detail_address} = res.data.data
+          name, tel, area, budget, province_code, province_name, detail_address, recommender, recommender_name} = res.data.data
           self.setData({
             locationState: {
               cityCode: city_code,
@@ -82,6 +89,8 @@ Page({
               provinceCode: province_code,
               provinceName: province_name,
               detailAddress:detail_address,
+              recommender: recommender,
+              recommenderName: recommender_name
             }
           })
         }
@@ -344,7 +353,9 @@ Page({
         district_code: locationState.districtCode,
         detail_address: locationState.detailAddress,
         area: locationState.area,
-        budget: locationState.budget
+        budget: locationState.budget,
+        recommender_name: locationState.recommenderName,
+        recommender: locationState.recommender
       },
       method: 'POST',
       success(res){
@@ -358,5 +369,40 @@ Page({
         showModel('提示', error.message)
       }
     })
+  },
+  onColumnChange(e) {
+    console.log('picker pick:', e);
+  },
+
+  onPickerChange(e) {
+    const { value, label } = e.detail;
+
+    console.log('picker change:', e.detail);
+    this.setData({
+      'locationState.recommender': value[0],
+      'locationState.recommenderName': label[0],
+    },() => {
+      const { isLegal, tips } = this.onVerifyInputLegal();
+      this.setData({
+        submitActive: isLegal,
+        privateData:{
+          ...this.data.privateData,
+          verifyTips: tips
+        }
+      });
+    },);
+  },
+
+  onPickerCancel(e) {
+    const { key } = e.currentTarget.dataset;
+    console.log(e, '取消');
+    console.log('picker1 cancel:');
+    this.setData({
+      [`${key}Visible`]: false,
+    });
+  },
+
+  onRecommenderPicker() {
+    this.setData({ recommenderVisible: true });
   },
 });

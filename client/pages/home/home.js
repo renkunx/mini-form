@@ -1,22 +1,3 @@
-const imageCdn = 'https://tdesign.gtimg.com/mobile/demos';
-const swiperList = [
-  {
-    value: `${imageCdn}/swiper1.png`,
-    ariaLabel: '图片1',
-  },
-  {
-    value: `${imageCdn}/swiper2.png`,
-    ariaLabel: '图片2',
-  },
-  {
-    value: `${imageCdn}/swiper1.png`,
-    ariaLabel: '图片1',
-  },
-  {
-    value: `${imageCdn}/swiper2.png`,
-    ariaLabel: '图片2',
-  },
-];
 const { doRequest, showModel, showSuccess } = require('../../utils/utils')
 
 import config from '../../config'
@@ -30,56 +11,18 @@ Page({
     autoplay: true,
     duration: 500,
     interval: 5000,
-    swiperList,
-    adTop:'https://tdesign.gtimg.com/mobile/demos/swiper1.png',
-    mrchList: [
-      {
-        name:'商户一',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-      {
-        name:'商户二',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-      {
-        name:'商户三',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-      {
-        name:'商户四',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-      {
-        name:'商户五',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-      {
-        name:'商户六',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-      {
-        name:'商户七',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-      {
-        name:'商户八',
-        icon:'',
-        url:'https://www.baidu.com'
-      },
-    ]
+    ad1:[],
+    ad2:[],
+    ad3:[],
+    ad4:[],
+    ad5:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.getHome()
   },
 
   /**
@@ -93,7 +36,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    this.getHome()
   },
 
   /**
@@ -132,13 +74,49 @@ Page({
   },
   
   getHome(){
-    debugger
+    let self = this
     doRequest({
       url: config.service.homeUrl,
       method: 'GET',
       success(res){
-        console.log(res)
+        wx.hideToast()
+        const {code, data} = res.data
+        let ad1=[],ad2=[],ad3=[],ad4=[],ad5=[]
+        if(code === 0){
+          data.forEach((item)=>{
+            switch(item.group){
+              case 'ad1':
+                ad1.push(item);
+                break;
+              case 'ad2':
+                ad2.push(item);
+                break;
+              case 'ad3':
+                ad3.push(item);
+                break;
+              case 'ad4':
+                ad4.push(item);
+                break;
+              case 'ad5':
+                ad5.push(item);
+                break;
+            }
+          })
+          self.setData({
+            ad1,ad2,ad3:ad3.map(item=>{
+              item.value = item.icon
+              item.ariaLabel = item.name
+              return item
+            }),ad4,ad5
+          })
+        }
       }
+    })
+  },
+  gotoDetail(item){
+    console.log(item)
+    wx.navigateTo({
+      url: '/pages/404/index',
     })
   }
 })

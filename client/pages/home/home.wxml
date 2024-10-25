@@ -1,8 +1,8 @@
-<t-image src="{{adTop}}" mode="aspectFill" width="750rpx" height="200" aria-label="品牌形象展示"></t-image>
+<t-image src="{{ad1[0].icon}}" mode="aspectFill" width="750rpx" height="200" aria-label="品牌形象展示"></t-image>
 <t-grid class="block">
-  <t-grid-item text="{{item.name}}" image="slot" wx:for="{{mrchList}}" wx:key="index">
-    <view slot="image" class="grid-item__image">
-      <t-avatar class="avatar-example" t-class-content="external-class-content" aria-label="字符头像" shape="round">商户</t-avatar>
+  <t-grid-item text="{{item.name}}" image="slot" wx:for="{{ad2}}" wx:key="index">
+    <view slot="image" class="grid-item__image" bind:tap="gotoDetail" data-item="{{item}}">
+      <t-avatar class="avatar-example" image="{{item.icon}}" t-class-content="external-class-content" aria-label="字符头像" shape="round"></t-avatar>
     </view>
   </t-grid-item>
 </t-grid>
@@ -11,23 +11,23 @@
   autoplay="{{autoplay}}"
   duration="{{duration}}"
   interval="{{interval}}"
-  list="{{swiperList}}"
+  list="{{ad3}}"
   navigation="{{ { type: 'dots-bar' } }}"
 />
 <view class="ad-content2">
-  <view class="ad-content2-left ad-content2__content">
-    <view class="content-title">现代风</view>
-    <view class="content-desc">现代风描述</view>
+  <view class="ad-content2-left ad-content2__content" style="background-image: url('{{ad4[0].icon}}')">
+    <view class="content-title">{{ad4[0].name}}</view>
+    <view class="content-desc">{{ad4[0].desc}}</view>
   </view>
   <view class="ad-content2-right">
-    <view class="ad-content2-right__top ad-content2__content">
-      <view class="content-title">现代风1</view>
-      <view class="content-desc">现代风1描述</view>
+    <view class="ad-content2-right__top ad-content2__content" style="background-image: url('{{ad4[1].icon}}')">
+      <view class="content-title">{{ad4[1].name}}</view>
+      <view class="content-desc">{{ad4[1].desc}}</view>
     </view>
-    <view class="ad-content2-right__bottom ad-content2__content">
-      <view class="content-title">现代风2</view>
-      <view class="content-desc">现代风2描述</view>
+    <view class="ad-content2-right__bottom ad-content2__content" style="background-image: url('{{ad4[2].icon}}')">
+      <view class="content-title">{{ad4[2].name}}</view>
+      <view class="content-desc">{{ad4[2].desc}}</view>
     </view>
   </view>
 </view>
-<t-image src="https://tdesign.gtimg.com/mobile/demos/swiper2.png" height="200rpx" width="750rpx" mode="cover"></t-image>
+<t-image src="{{ad5[0].icon}}" height="200rpx" width="750rpx" mode="cover"></t-image>

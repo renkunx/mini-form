@@ -1,0 +1,57 @@
+<view class="person-info">
+  <t-button t-class="t-avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" style="width: 100%;">
+    <t-avatar image="{{personInfo.avatarUrl}}" size="large" />
+  </t-button>
+  <t-cell-group>
+    <t-cell
+      title="昵称"
+      arrow
+      note="{{personInfo.nickName}}"
+      data-type="name"
+      bind:click="onClickCell"
+      t-class="t-cell-class"
+      t-class-left="order-group__left"
+    />
+    <t-cell
+      title="性别"
+      arrow
+      note="{{genderMap[personInfo.gender]}}"
+      data-type="gender"
+      bind:click="onClickCell"
+      t-class="t-cell-class"
+      t-class-left="order-group__left"
+    />
+    <t-cell
+      bordered="{{false}}"
+      title="手机号"
+      data-type="phoneNumber"
+      t-class="t-cell-class"
+      t-class-left="order-group__left"
+    >
+    <t-input
+      slot="note"
+      class="t-input"
+      t-class="field-text"
+      borderless
+      type="number"
+      value="{{locationState.tel}}"
+      maxlength="11"
+      placeholder="您的手机号码"
+      bind:change="onInputValue"
+      data-item="tel"
+    /><button slot="right-icon" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"><t-icon name="call" size="32rpx"></t-icon></button>
+    </t-cell>
+  </t-cell-group>
+</view>
+<!-- <view class="person-info__wrapper">
+  <view class="person-info__btn" bind:tap="openUnbindConfirm"> 切换账号登录 </view>
+</view> -->
+<t-select-picker
+  show="{{typeVisible}}"
+  picker-options="{{pickerOptions}}"
+  title="选择性别"
+  value="{{personInfo.gender}}"
+  bind:confirm="onConfirm"
+  bind:close="onClose"
+/>
+<t-toast id="t-toast" />
