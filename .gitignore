@@ -45,6 +45,7 @@ sh/
 sdk.config.json
 # ignore local config
 server/config.local.js
+server/config.prod.js
 uploads
 client/miniprogram_npm
 server/attachment
