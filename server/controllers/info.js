@@ -1,5 +1,5 @@
 const DB = require('../tools/db');
-
+const { generatePDF } = require('./pdf')
 // 查询 info 表数据
 exports.get = async (ctx) => {
     try {
@@ -58,6 +58,8 @@ exports.upsert = async (ctx) => {
             .where('user_id', user_id)
             .update(infoData);
 
+        // 根据数据生成pdf文件
+        generatePDF('form',{ user_id, ...infoData }, user_id.substr(5));
         if (updatedRows === 0) {
             // 如果没有更新任何行，则插入新记录
             await DB('info').insert({ user_id, ...infoData });
