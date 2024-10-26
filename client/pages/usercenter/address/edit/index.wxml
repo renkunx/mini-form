@@ -116,17 +116,12 @@
   ></t-cascader>
 </view>
 <t-dialog
-  visible="{{visible}}"
-  t-class-confirm="dialog__button-confirm"
-  t-class-cancel="dialog__button-cancel"
-  title="填写标签名称"
-  confirm-btn="确定"
-  cancel-btn="取消"
-  bind:confirm="confirmHandle"
-  bind:cancel="cancelHandle"
->
-  <t-input slot="content" class="dialog__input" model:value="{{labelValue}}" placeholder="请输入标签名称" borderless />
-</t-dialog>
+  visible="{{showPdf}}"
+  title="提示"
+  content="提交成功👍\npdf文件已生成，点击拷贝复制链接"
+  confirm-btn="复制"
+  bind:confirm="closeDialog"
+/>
 <t-toast id="t-toast" />
 <t-picker
   visible="{{recommenderVisible}}"

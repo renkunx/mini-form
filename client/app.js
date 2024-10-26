@@ -2,7 +2,7 @@
  * @fileOverview 微信小程序的入口文件
  */
 
-var qcloud = require('./vendor/wafer2-client-sdk/index');
+var qcloud = require('wafer2-client-sdk/index');
 var config = require('./config');
 
 App({

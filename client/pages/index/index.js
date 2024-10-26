@@ -3,7 +3,7 @@
  */
 
 // 引入 QCloud 小程序增强 SDK
-var qcloud = require('../../vendor/wafer2-client-sdk/index');
+var qcloud = require('wafer2-client-sdk/index');
 
 // 引入配置
 var config = require('../../config');

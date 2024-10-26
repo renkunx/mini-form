@@ -1,7 +1,8 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 // 引入 QCloud 小程序增强 SDK
-var qcloud = require('../../vendor/wafer2-client-sdk/index');
+var qcloud = require('wafer2-client-sdk/index');
 const { showBusy, showModel, showSuccess } = require('../../utils/utils')
+import config from '../../config'
 const app = getApp()
 const menuData = [
   [{
@@ -54,6 +55,7 @@ Page({
   },
 
   onShow() {
+    this.getTabBar().init();
     this.init();
   },
   onPullDownRefresh() {
@@ -61,7 +63,13 @@ Page({
   },
 
   init() {
-    !this.data.logged && this.loginWX();
+    if(this.data.logged || app.globalData.logged){
+      this.setData({
+        userInfo: app.globalData.userInfo || wx.getStorageSync('userInfo')
+      })
+    } else {
+      this.loginWX();
+    }
   },
 
   onClickCell({
@@ -180,6 +188,8 @@ Page({
   loginWX(){
     showBusy('正在登录');
     const session = qcloud.Session.get()
+    // 设置登录地址
+    qcloud.setLoginUrl(config.service.loginUrl);
     if (session) {
       // 第二次登录
       // 或者本地已经有登录态

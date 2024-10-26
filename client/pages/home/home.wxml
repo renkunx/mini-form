@@ -12,19 +12,20 @@
   duration="{{duration}}"
   interval="{{interval}}"
   list="{{ad3}}"
+  bind:click="gotoDetail"
   navigation="{{ { type: 'dots-bar' } }}"
 />
 <view class="ad-content2">
-  <view class="ad-content2-left ad-content2__content" style="background-image: url('{{ad4[0].icon}}')">
+  <view class="ad-content2-left ad-content2__content" bind:tap="gotoDetail" style="background-image: url('{{ad4[0].icon}}')">
     <view class="content-title">{{ad4[0].name}}</view>
     <view class="content-desc">{{ad4[0].desc}}</view>
   </view>
   <view class="ad-content2-right">
-    <view class="ad-content2-right__top ad-content2__content" style="background-image: url('{{ad4[1].icon}}')">
+    <view class="ad-content2-right__top ad-content2__content" bind:tap="gotoDetail" style="background-image: url('{{ad4[1].icon}}')">
       <view class="content-title">{{ad4[1].name}}</view>
       <view class="content-desc">{{ad4[1].desc}}</view>
     </view>
-    <view class="ad-content2-right__bottom ad-content2__content" style="background-image: url('{{ad4[2].icon}}')">
+    <view class="ad-content2-right__bottom ad-content2__content" bind:tap="gotoDetail" style="background-image: url('{{ad4[2].icon}}')">
       <view class="content-title">{{ad4[2].name}}</view>
       <view class="content-desc">{{ad4[2].desc}}</view>
     </view>

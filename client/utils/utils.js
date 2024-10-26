@@ -1,5 +1,5 @@
 // 引入 QCloud 小程序增强 SDK
-const qcloud = require('../vendor/wafer2-client-sdk/index');
+const qcloud = require('wafer2-client-sdk/index');
 
 const showBusy= text => wx.showToast({
   title: text,

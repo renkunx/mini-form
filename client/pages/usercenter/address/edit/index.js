@@ -43,9 +43,11 @@ Page({
       {label: '商户一',value: 1123123},
       {label: '商户2',value: 11231232},
       {label: '商户2',value: 11231233},
-    ]
+    ],
+    showPdf:false
   },
   onShow() {
+    this.getTabBar().init();
     this.init()
   },
 
@@ -58,6 +60,9 @@ Page({
     if(app.globalData.logged){
       this.getForm()
     } else {
+      wx.showToast({
+        title: '请先登录',
+      })
       // 跳转登录
       wx.switchTab({
         url: '/pages/usercenter/index',
@@ -337,7 +342,7 @@ Page({
       return;
     }
     const { locationState } = this.data;
-
+    let self = this;
     doRequest({
       url:config.service.saveFormUrl,
       method:'POST',
@@ -359,10 +364,12 @@ Page({
       },
       method: 'POST',
       success(res){
-        if(res.code === 0){
-          showSuccess('提交成功')
-        } else {
-          showModel('提示', res.message)
+        const { code, data } = res.data
+        if(code === 0){
+          self.setData({
+            showPdf: true,
+            pdfUrl: `${config.service.host}/weapp/pdf?fileName=${data.user_id}.pdf`
+          })
         }
       },
       fail(error){
@@ -376,8 +383,6 @@ Page({
 
   onPickerChange(e) {
     const { value, label } = e.detail;
-
-    console.log('picker change:', e.detail);
     this.setData({
       'locationState.recommender': value[0],
       'locationState.recommenderName': label[0],
@@ -405,4 +410,15 @@ Page({
   onRecommenderPicker() {
     this.setData({ recommenderVisible: true });
   },
+  closeDialog(){
+    let self = this;
+    wx.setClipboardData({
+      data: this.data.pdfUrl,
+      success(){
+        self.setData({
+          showPdf: false
+        })
+      }
+    })
+  }
 });

@@ -8,7 +8,6 @@ Component({
   methods: {
     onChange(event) {
       this.setData({ active: event.detail.value });
-      console.log('active',this.data.active)
       wx.switchTab({
         url: this.data.list[event.detail.value].url.startsWith('/')
           ? this.data.list[event.detail.value].url
