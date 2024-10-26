@@ -69,7 +69,7 @@ exports.generatePDFFromTemplate = async (ctx) => {
       code: 0,
       data: {
         message: 'PDF生成成功',
-        fileName: pdfFileName
+        fileName: data.user_id + '.pdf'
       }
     };
   } catch (error) {

@@ -15,7 +15,7 @@ exports.get = async (ctx) => {
         if (infoData.length === 0) {
             ctx.status = 404;
             ctx.body = {
-                code: -1,
+                code: -10,
                 data: null,
                 message: '未找到信息'
             };
@@ -31,7 +31,7 @@ exports.get = async (ctx) => {
         console.error('获取信息时出错:', error);
         ctx.status = 500;
         ctx.body = {
-            code: -1,
+            code: -10,
             data: null,
             message: '获取信息时发生错误'
         };
@@ -46,7 +46,7 @@ exports.upsert = async (ctx) => {
         if (!user_id) {
             ctx.status = 400;
             ctx.body = {
-                code: -1,
+                code: -10,
                 data: null,
                 message: 'user_id 是必需的'
             };
@@ -79,7 +79,7 @@ exports.upsert = async (ctx) => {
         console.error('插入或更新信息时出错:', error);
         ctx.status = 500;
         ctx.body = {
-            code: -1,
+            code: -10,
             data: null,
             message: '插入或更新信息时发生错误'
         };

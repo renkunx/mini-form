@@ -20,7 +20,7 @@ const CONF = {
     },
 
     // 微信登录态有效期
-    wxLoginExpires: 7200
+    wxLoginExpires: 72000
 }
 
 module.exports = process.env.NODE_ENV === 'local' ? Object.assign({}, CONF, require('./config.local')) : Object.assign({}, CONF, require('./config.prod'));
