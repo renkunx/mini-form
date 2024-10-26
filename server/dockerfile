@@ -1,26 +1,23 @@
-# 使用官方 Node.js 18 镜像作为基础镜像
-FROM node:18-slim
+# 使用 Chromium 镜像作为基础镜像
+FROM grafana/docker-puppeteer:pre-node-20
 
-# 更新系统并安装 Chromium
-RUN apt-get update && apt-get install -y \
-    chromium \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update \
+#     && apt-get install -y wget gnupg libglib2.0-dev
 
-# 设置 Puppeteer 使用系统安装的 Chromium
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-ENV PUPPETEER_EXECUTABLE_PATH /usr/bin/chromium
+# 验证 Node.js 和 npm 安装
+RUN node --version && npm --version
 
 # 设置工作目录
 WORKDIR /usr/src/app
 
-# 复制 package.json 和 package-lock.json（如果存在）
-COPY package*.json ./
-COPY config.local.js ./
+# 复制 package.json
+COPY package.json ./
+COPY config.prod.js ./
 
 # 安装项目依赖
 RUN npm install
-
+# 安装 Puppeteer 浏览器
+RUN npx puppeteer browsers install chrome
 # 复制项目文件到工作目录
 COPY . .
 
