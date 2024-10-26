@@ -1,4 +1,3 @@
-const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
@@ -11,6 +10,50 @@ if (!fs.existsSync(ATTACHMENT_DIR)) {
   fs.mkdirSync(ATTACHMENT_DIR, { recursive: true });
 }
 
+const generatePDF = async (templateName, data, password) => {
+  // 读取HTML模板
+  const templatePath = path.join(__dirname, '..', 'templates', `${templateName}.hbs`);
+  const templateSource = fs.readFileSync(templatePath, 'utf8');
+
+  // 编译模板
+  const template = Handlebars.compile(templateSource);
+
+  // 使用数据渲染模板
+  const html = template(data);
+
+  // 启动浏览器
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  // 设置页面内容
+  await page.setContent(html, { waitUntil: 'networkidle0' });
+
+  // PDF选项
+  const pdfOptions = {
+    format: 'A4',
+    printBackground: true
+  };
+
+  // 如果提供了密码，添加保护
+  if (password) {
+    pdfOptions.userPassword = password;
+    pdfOptions.ownerPassword = password;
+  }
+
+  // 生成PDF文件名
+  const pdfFileName = `${data.user_id}.pdf`;
+  const pdfFilePath = path.join(ATTACHMENT_DIR, pdfFileName);
+
+  // 生成PDF并保存到文件
+  await page.pdf({ ...pdfOptions, path: pdfFilePath });
+
+  // 关闭浏览器
+  await browser.close();
+
+}
+
+exports.generatePDF = generatePDF;
+
 exports.generatePDFFromTemplate = async (ctx) => {
   const { templateName, data, password } = ctx.request.body;
 
@@ -21,50 +64,12 @@ exports.generatePDFFromTemplate = async (ctx) => {
   }
 
   try {
-    // 读取HTML模板
-    const templatePath = path.join(__dirname, '..', 'templates', `${templateName}.hbs`);
-    const templateSource = fs.readFileSync(templatePath, 'utf8');
-
-    // 编译模板
-    const template = Handlebars.compile(templateSource);
-
-    // 使用数据渲染模板
-    const html = template(data);
-
-    // 启动浏览器
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-
-    // 设置页面内容
-    await page.setContent(html, { waitUntil: 'networkidle0' });
-
-    // PDF选项
-    const pdfOptions = {
-      format: 'A4',
-      printBackground: true
-    };
-
-    // 如果提供了密码，添加保护
-    if (password) {
-      pdfOptions.userPassword = password;
-      pdfOptions.ownerPassword = password;
-    }
-
-    // 生成PDF文件名
-    const pdfFileName = `${templateName}-${Date.now()}.pdf`;
-    const pdfFilePath = path.join(ATTACHMENT_DIR, pdfFileName);
-
-    // 生成PDF并保存到文件
-    await page.pdf({ ...pdfOptions, path: pdfFilePath });
-
-    // 关闭浏览器
-    await browser.close();
-
+    await generatePDF(templateName, data, password);
     ctx.body = {
       code: 0,
       data: {
         message: 'PDF生成成功',
-        fileName: pdfFileName
+        fileName: data.user_id + '.pdf'
       }
     };
   } catch (error) {

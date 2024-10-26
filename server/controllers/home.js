@@ -9,7 +9,7 @@ exports.get = async (ctx) => {
         if (homeData.length === 0) {
             ctx.status = 404;
             ctx.body = {
-                code: -1,
+                code: -10,
                 data: null,
                 message: '未找到首页数据'
             };
@@ -26,7 +26,7 @@ exports.get = async (ctx) => {
         console.error('获取首页数据时出错:', error);
         ctx.status = 500;
         ctx.body = {
-            code: -1,
+            code: -10,
             data: null,
             message: '获取首页数据时发生错误'
         };

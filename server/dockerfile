@@ -1,0 +1,31 @@
+# 使用 Chromium 镜像作为基础镜像
+FROM grafana/docker-puppeteer:pre-node-20
+
+# RUN apt-get update \
+#     && apt-get install -y wget gnupg libglib2.0-dev
+
+# 验证 Node.js 和 npm 安装
+RUN node --version && npm --version
+
+# 设置工作目录
+WORKDIR /usr/src/app
+
+# 复制 package.json
+COPY package.json ./
+COPY config.prod.js ./
+
+# 安装项目依赖
+RUN npm install
+# 安装 Puppeteer 浏览器
+RUN npx puppeteer browsers install chrome
+# 复制项目文件到工作目录
+COPY . .
+
+# 暴露应用程序运行的端口（根据您的应用程序配置进行调整）
+EXPOSE 5757
+
+# 定义环境变量
+ENV NODE_ENV=production
+
+# 运行应用程序
+CMD [ "npm", "run", "start" ]
