@@ -44,6 +44,10 @@ page .divider-line {
   flex: none !important;
 }
 
+.t-input-1 {
+  color: #000000 !important;
+}
+
 .textarea__wrapper {
   width: 100%;
 }
@@ -120,4 +124,10 @@ page .divider-line {
   width: 350rpx;
   margin: 0 auto;
   color: #999999;
+}
+
+.tips {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color:#ff9800
 }

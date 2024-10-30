@@ -24,10 +24,62 @@ const showModel= (title, content) => {
   });
 }
 
+function parseAddress(fullAddress, areaData) {
+  const result = {
+    provinceCode: '',
+    provinceName: '',
+    cityCode: '',
+    cityName: '',
+    districtCode: '',
+    districtName: '',
+    address: ''
+  };
+
+  // 遍历省级数据
+  for (const province of areaData) {
+    if (fullAddress.startsWith(province.label)) {
+      result.provinceCode = province.value;
+      result.provinceName = province.label;
+      
+      // 遍历市级数据
+      for (const city of province.children || []) {
+        // 对于直辖市，城市名和省名相同
+        if (fullAddress.includes(city.label)) {
+          result.cityCode = city.value;
+          result.cityName = city.label;
+          
+          // 遍历区级数据
+          for (const district of city.children || []) {
+            if (fullAddress.includes(district.label)) {
+              result.districtCode = district.value;
+              result.districtName = district.label;
+              
+              // 获取详细地址
+              // 将省市区名称从完整地址中移除
+              let address = fullAddress;
+              [result.provinceName, result.cityName, result.districtName].forEach(name => {
+                address = address.replace(name, '');
+              });
+              result.address = address.trim();
+              
+              return result;
+            }
+          }
+          break;
+        }
+      }
+      break;
+    }
+  }
+  
+  return result;
+}
+
 module.exports = {
   showBusy,
   showSuccess,
   showModel,
+  parseAddress,
   /**
    * 点击「请求」按钮，测试带会话请求的功能
    */

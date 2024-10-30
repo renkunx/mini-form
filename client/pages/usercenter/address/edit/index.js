@@ -4,7 +4,7 @@ import config from '../../../../config'
 
 const innerPhoneReg = '^1(?:3\\d|4[4-9]|5[0-35-9]|6[67]|7[0-8]|8\\d|9\\d)\\d{8}$';
 const innerNameReg = '^[a-zA-Z\\d\\u4e00-\\u9fa5]+$';
-const { doRequest, showModel, showSuccess } = require('../../../../utils/utils')
+const { doRequest, showModel, showSuccess, parseAddress } = require('../../../../utils/utils')
 const app = getApp()
 
 Page({
@@ -27,6 +27,8 @@ Page({
       detailAddress:'',
       recommender:'',
       recommenderName:'',
+      latitude:0.00,
+      longitude:0.00
     },
     areaData: areaData,
     areaPickerVisible: false,
@@ -46,9 +48,21 @@ Page({
     ],
     showPdf:false
   },
+  onLoad() {
+    this.init()
+  },
   onShow() {
     this.getTabBar().init();
-    this.init()
+    if(app.globalData.logged){
+    } else {
+      wx.showToast({
+        title: '请先登录',
+      })
+      // 跳转登录
+      wx.switchTab({
+        url: '/pages/usercenter/index',
+      })
+    }
   },
 
   onUnload() {
@@ -297,12 +311,33 @@ Page({
     this.builtInSearch({ code: 'scope.userLocation', name: '地址位置' }).then(() => {
       wx.chooseLocation({
         success: (res) => {
+          console.log(res)
           if (res.name) {
-            this.triggerEvent('addressParse', {
-              address: res.address,
-              name: res.name,
-              latitude: res.latitude,
-              longitude: res.longitude,
+            const { address, name, latitude, longitude } = res;
+            // 使用完整地址进行解析
+            const fullAddress = address+name;
+            const parsedAddress = parseAddress(fullAddress, this.data.areaData);
+            
+            this.setData({
+              'locationState.provinceCode': parsedAddress.provinceCode,
+              'locationState.provinceName': parsedAddress.provinceName,
+              'locationState.cityCode': parsedAddress.cityCode,
+              'locationState.cityName': parsedAddress.cityName,
+              'locationState.districtCode': parsedAddress.districtCode,
+              'locationState.districtName': parsedAddress.districtName,
+              'locationState.detailAddress': parsedAddress.address || name,
+              'locationState.latitude': latitude,
+              'locationState.longitude': longitude
+            }, () => {
+              const { isLegal, tips } = this.onVerifyInputLegal();
+              this.setData({
+                submitActive: isLegal,
+                privateData: {
+                  ...this.data.privateData,
+                  verifyTips: tips
+                }
+              });
+              console.log('this.data.locationState',this.data.locationState)
             });
           } else {
             Toast({
@@ -360,7 +395,9 @@ Page({
         area: locationState.area,
         budget: locationState.budget,
         recommender_name: locationState.recommenderName,
-        recommender: locationState.recommender
+        recommender: locationState.recommender,
+        latitude: locationState.latitude,
+        longitude: locationState.longitude
       },
       method: 'POST',
       success(res){

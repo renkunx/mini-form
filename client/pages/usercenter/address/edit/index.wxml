@@ -35,7 +35,7 @@
         <t-cell class="form-cell" t-class-title="t-cell-title" title="地区">
           <t-input
             slot="note"
-            class="t-input"
+            t-class-input="t-input-1"
             t-class="field-text"
             borderless
             placeholder="省/市/区"
@@ -73,7 +73,7 @@
             align="right"
             type="number"
             value="{{locationState.area}}"
-            placeholder="100"
+            placeholder="0"
             bind:change="onInputValue"
           />
         </t-cell>
@@ -92,8 +92,9 @@
             bind:change="onInputValue"
           />
         </t-cell>
-        <t-cell title="推荐人" arrow hover bind:click="onRecommenderPicker" note="{{locationState.recommenderName}}" />
+        <t-cell title="推荐人" arrow hover bind:click="onRecommenderPicker" note="{{locationState.recommenderName}}" t-class-note="t-input-1" />
       </t-cell-group>
+      <view class="tips" wx:if="{{!(privateData.verifyTips === '添加成功' || privateData.verifyTips === '')}}">{{privateData.verifyTips}}</view>
       <view class="submit">
         <t-button size="large" theme="primary" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 提交 </t-button>
       </view>
