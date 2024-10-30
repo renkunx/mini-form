@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
 const puppeteer = require('puppeteer');
-
 const ATTACHMENT_DIR = path.join(__dirname, '..', 'attachment');
 
 // 确保 attachment 目录存在
@@ -21,8 +20,11 @@ const generatePDF = async (templateName, data, password) => {
   // 使用数据渲染模板
   const html = template(data);
 
-  // 启动浏览器
-  const browser = await puppeteer.launch();
+
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--headless', '--disable-gpu'],
+    ignoreDefaultArgs: ['--disable-extensions']
+  });
   const page = await browser.newPage();
 
   // 设置页面内容
