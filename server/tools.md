@@ -26,3 +26,13 @@ node tools/initdb.js
 ```
 
 我们提供了初始化的 SQL 文件，你也可以用其他数据库工具（如 Navicat）直接导入 SQL 文件。
+
+
+```bash
+docker build -t ccr.ccs.tencentyun.com/haidao/img-captain-mini-form:latest .
+
+docker run \
+-v ./attachment:/usr/src/app/attachment \
+-v ./uploads:/usr/src/app/uploads \
+-p5757:5757 ccr.ccs.tencentyun.com/haidao/img-captain-mini-form:latest
+```

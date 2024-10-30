@@ -1,14 +1,19 @@
-# 使用 Chromium 镜像作为基础镜像
-FROM grafana/docker-puppeteer:pre-node-20
-
-# RUN apt-get update \
-#     && apt-get install -y wget gnupg libglib2.0-dev
+# 使用官方 Puppeteer 镜像作为基础镜像
+FROM node:20-bullseye-slim
 
 # 验证 Node.js 和 npm 安装
-RUN node --version && npm --version
+RUN node --version && npm --version && \
+  apt-get update && apt-get install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpangocairo-1.0-0 &&\
+  groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser
 
 # 设置工作目录
-WORKDIR /usr/src/app
+WORKDIR /home/pptruser/mini-form
+
+# 创建持久化目录
+# RUN mkdir -p /home/pptruser/mini-form/attachment /home/pptruser/mini-form/uploads
+
+# 声明数据卷
+VOLUME ["/home/pptruser/mini-form/attachment", "/home/pptruser/mini-form/uploads"]
 
 # 复制 package.json
 COPY package.json ./
@@ -16,16 +21,18 @@ COPY config.prod.js ./
 
 # 安装项目依赖
 RUN npm install
-# 安装 Puppeteer 浏览器
-RUN npx puppeteer browsers install chrome
+RUN npx @puppeteer/browsers install chrome@stable
 # 复制项目文件到工作目录
 COPY . .
-
-# 暴露应用程序运行的端口（根据您的应用程序配置进行调整）
+# 切换到非 root 用户
+# USER pptruser
+# 暴露应用程序运行的端口
 EXPOSE 5757
 
 # 定义环境变量
 ENV NODE_ENV=production
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/home/pptruser/mini-form/chrome/linux-130.0.6723.91/chrome-linux64
 
 # 运行应用程序
 CMD [ "npm", "run", "start" ]

@@ -49,3 +49,4 @@ server/config.prod.js
 uploads
 client/miniprogram_npm
 server/attachment
+server/chrome
