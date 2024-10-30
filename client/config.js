@@ -4,7 +4,8 @@
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
 // var host = 'https://mini-form.app.haidao.tech';
-var host = 'http://localhost:5757';
+var host = 'https://mp.taiyanggroup.com';
+// var host = 'http://localhost:5757';
 
 var config = {
 
