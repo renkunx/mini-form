@@ -76,6 +76,9 @@ router.get('/home', controllers.home.get)
 router.get('/info', controllers.info.get)
 router.post('/info', controllers.info.upsert)
 
+// 添加获取手机号的路由
+router.post('/phone', controllers.phone.getPhoneNumber)
+
 // 设置为匹配到的路由返回404
 router.all('/*', async (ctx) => {
     ctx.status = 404;
