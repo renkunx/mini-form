@@ -8,7 +8,8 @@
     "pages/index/index",
     "pages/404/index",
     "pages/usercenter/person-info/index",
-    "pages/usercenter/name-edit/index"
+    "pages/usercenter/name-edit/index",
+    "pages/store/store"
   ],
   "tabBar": {
     "custom": true,
