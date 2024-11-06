@@ -1,7 +1,7 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 // 引入 QCloud 小程序增强 SDK
 var qcloud = require('wafer2-client-sdk/index');
-const { showBusy, showModel, showSuccess } = require('../../utils/utils')
+const { showBusy, showModel, showSuccess, doRequest } = require('../../utils/utils')
 import config from '../../config'
 const app = getApp()
 const menuData = [
@@ -195,16 +195,8 @@ Page({
       // 或者本地已经有登录态
       // 可使用本函数更新登录态
       qcloud.loginWithCode({
-        success: res => {
-          this.setData({
-            userInfo: res,
-            logged: true,
-            currAuthStep:2
-          })
-          app.globalData.userInfo = res
-          app.globalData.logged = true
-          wx.setStorageSync('userInfo', res)
-          showSuccess('登录成功')
+        success: () => {
+          this.getUserInfo()
         },
         fail: err => {
           console.error(err)
@@ -214,16 +206,8 @@ Page({
     } else {
       // 首次登录
       qcloud.login({
-        success: res => {
-          this.setData({
-            userInfo: res,
-            logged: true,
-            currAuthStep: 2
-          })
-          app.globalData.userInfo = res
-          wx.setStorageSync('userInfo', res)
-          app.globalData.logged = true
-          showSuccess('登录成功')
+        success: () => {
+          this.getUserInfo()
         },
         fail: err => {
           console.error(err)
@@ -231,5 +215,30 @@ Page({
         }
       })
     }
+  },
+  getUserInfo(){
+    doRequest({
+      url: config.service.userUrl,
+      method: 'GET',
+      success: (res) => {
+        const {code, data} = res.data
+        this.setData({
+          userInfo: data,
+          logged: true,
+          currAuthStep:2
+        })
+        app.globalData.userInfo = data
+        app.globalData.logged = true
+        wx.setStorageSync('userInfo', data)
+        showSuccess('登录成功')
+      },
+      fail: () => {
+        wx.showToast({
+          title: '登录错误',
+          icon: 'none',
+          duration: 2000,
+        });
+      },
+    });
   }
 });
