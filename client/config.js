@@ -29,7 +29,13 @@ var config = {
         saveFormUrl: `${host}/weapp/info`,
 
         // 获取首页数据
-        homeUrl: `${host}/weapp/home`
+        homeUrl: `${host}/weapp/home`,
+
+        // 获取手机号
+        phoneUrl: `${host}/weapp/phone`,
+
+        // 获取用户信息
+        userUrl: `${host}/weapp/user/info`
     }
 };
 
