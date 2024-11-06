@@ -6,7 +6,7 @@
     <t-cell
       title="昵称"
       arrow
-      note="{{personInfo.nickName}}"
+      note="{{personInfo.nickname}}"
       data-type="name"
       bind:click="onClickCell"
       t-class="t-cell-class"
@@ -34,8 +34,9 @@
       t-class="field-text"
       borderless
       type="number"
-      value="{{locationState.tel}}"
+      value="{{personInfo.phoneNumber}}"
       maxlength="11"
+      disabled
       placeholder="您的手机号码"
       bind:change="onInputValue"
       data-item="tel"
@@ -43,9 +44,6 @@
     </t-cell>
   </t-cell-group>
 </view>
-<!-- <view class="person-info__wrapper">
-  <view class="person-info__btn" bind:tap="openUnbindConfirm"> 切换账号登录 </view>
-</view> -->
 <t-select-picker
   show="{{typeVisible}}"
   picker-options="{{pickerOptions}}"

@@ -6,8 +6,8 @@ page view {
 }
 .t-avatar {
   margin: 64rpx auto;
-  height: 150rpx !important;
   width: 100%;
+  height: 136rpx;
   background-color: transparent !important;
 }
 
