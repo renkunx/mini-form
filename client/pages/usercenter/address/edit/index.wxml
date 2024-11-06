@@ -25,12 +25,14 @@
             t-class="field-text"
             borderless
             type="number"
-            value="{{locationState.tel}}"
+            value="{{locationState.phone}}"
             maxlength="11"
             placeholder="联系您的手机号"
             bind:change="onInputValue"
-            data-item="tel"
+            data-item="phone"
+            disabled
           />
+          <button slot="right-icon" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"><t-icon name="call" size="32rpx"></t-icon></button>
         </t-cell>
         <t-cell class="form-cell" t-class-title="t-cell-title" title="地区">
           <t-input

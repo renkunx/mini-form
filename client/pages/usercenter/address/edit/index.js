@@ -19,7 +19,7 @@ Page({
       districtCode: '',
       districtName: '',
       name: '',
-      tel: '',
+      phone: '' || app.globalData.userInfo.phone,
       area: null,
       budget: null,
       provinceCode: '',
@@ -89,12 +89,12 @@ Page({
       url:config.service.saveFormUrl,
       method:'GET',
       data: {
-        user_id: app.globalData.userInfo.openId,
+        user_id: app.globalData.userInfo.open_id,
       },
       success(res){
         if(res.data.code === 0){
           const {city_code, city_name, district_code, district_name,
-          name, tel, area, budget, province_code, province_name, detail_address, recommender, recommender_name} = res.data.data
+          name, phone, area, budget, province_code, province_name, detail_address, recommender, recommender_name} = res.data.data
           self.setData({
             locationState: {
               cityCode: city_code,
@@ -102,7 +102,7 @@ Page({
               districtCode: district_code,
               districtName: district_name,
               name: name,
-              tel: tel,
+              phone: phone,
               area: area,
               budget: budget,
               provinceCode: province_code,
@@ -211,7 +211,7 @@ Page({
   },
 
   onVerifyInputLegal() {
-    const { name, tel, detailAddress, districtName } = this.data.locationState;
+    const { name, phone, detailAddress, districtName } = this.data.locationState;
     const prefixPhoneReg = String(this.properties.phoneReg || innerPhoneReg);
     const prefixNameReg = String(this.properties.nameReg || innerNameReg);
     const nameRegExp = new RegExp(prefixNameReg);
@@ -229,13 +229,13 @@ Page({
         tips: '姓名仅支持输入中文、英文（区分大小写）、数字',
       };
     }
-    if (!tel || !tel.trim()) {
+    if (!phone || !phone.trim()) {
       return {
         isLegal: false,
         tips: '请填写手机号',
       };
     }
-    if (!phoneRegExp.test(tel)) {
+    if (!phoneRegExp.test(phone)) {
       return {
         isLegal: false,
         tips: '请填写正确的手机号',
@@ -311,7 +311,6 @@ Page({
     this.builtInSearch({ code: 'scope.userLocation', name: '地址位置' }).then(() => {
       wx.chooseLocation({
         success: (res) => {
-          console.log(res)
           if (res.name) {
             const { address, name, latitude, longitude } = res;
             // 使用完整地址进行解析
@@ -382,8 +381,8 @@ Page({
       url:config.service.saveFormUrl,
       method:'POST',
       data: {
-        user_id: app.globalData.userInfo.openId,
-        tel: locationState.tel,
+        user_id: app.globalData.userInfo.open_id,
+        phone: locationState.phone,
         name: locationState.name,
         province_name: locationState.provinceName,
         province_code: locationState.provinceCode,
@@ -457,5 +456,52 @@ Page({
         })
       }
     })
+  },
+  getPhoneNumber (e) {  // 动态令牌
+    let self = this
+    if(e.detail.code){
+      // 获取手机号按钮的回调函数中
+      doRequest({
+        url: config.service.phoneUrl,
+        method: 'POST',
+        data: {
+          code: e.detail.code
+        },
+        success: (res) => {
+          if (res.data.code === 0) {
+            const phoneNumber = res.data.data.phoneNumber;
+            self.setData({
+              'locationState.phone': phoneNumber
+            }, ()=>{
+              doRequest({
+                url: config.service.userUrl,
+                method: 'POST',
+                data: {
+                  phone: phoneNumber,
+                },
+                success: () => {
+                  Toast({
+                    context: this,
+                    selector: '#t-toast',
+                    message: `设置成功`,
+                    theme: 'success',
+                  });
+                },
+                fail: (error) => {
+                  Toast({
+                    context: this,
+                    selector: '#t-toast',
+                    message: error.errMsg || error.msg || '设置手机号出错了',
+                    theme: 'error',
+                  });
+                },
+              });
+            })
+          } else {
+            console.error('获取手机号失败:', res.data.error);
+          }
+        }
+      });
+    }
   }
 });

@@ -131,3 +131,9 @@ page .divider-line {
   font-size: 28rpx;
   color:#ff9800
 }
+
+.t-cell__right button {
+  width: 64rpx;
+  height: 64rpx;
+  padding: 12rpx;
+}
