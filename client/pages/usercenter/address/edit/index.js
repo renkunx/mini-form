@@ -19,7 +19,7 @@ Page({
       districtCode: '',
       districtName: '',
       name: '',
-      phone: '' || app.globalData.userInfo.phone,
+      phone: app?.globalData?.userInfo?.phone || '',
       area: null,
       budget: null,
       provinceCode: '',
@@ -41,19 +41,17 @@ Page({
       verifyTips: '',
     },
     recommenderVisible: false,
-    recommenders: [
-      {label: '商户一',value: 1123123},
-      {label: '商户2',value: 11231232},
-      {label: '商户2',value: 11231233},
-    ],
-    showPdf:false
-  },
-  onLoad() {
-    this.init()
+    recommenders: [],
+    showPdf:false,
+    previewVisible: false,
+    showIndex: false,
+    closeBtn: true,
+    deleteBtn: false,
   },
   onShow() {
     this.getTabBar().init();
-    if(app.globalData.logged){
+    if(app.globalData.logged){    
+      this.init()
     } else {
       wx.showToast({
         title: '请先登录',
@@ -65,9 +63,7 @@ Page({
     }
   },
 
-  onUnload() {
-    
-  },
+  onUnload() {},
 
   init() {
     // 获取当前登录没，没登录跳转登录
@@ -82,6 +78,8 @@ Page({
         url: '/pages/usercenter/index',
       })
     }
+    // 获取推荐商户
+    this.getMerchant()
   },
   getForm(){
     let self = this
@@ -112,6 +110,40 @@ Page({
               recommenderName: recommender_name
             }
           })
+        }
+      },
+      fail(error){
+        showModel('提示', error.message)
+      }
+    })
+  },
+  getMerchant(){
+    let self = this
+    doRequest({
+      url:config.service.homeUrl+'?group=ad2',
+      method:'GET',
+      success(res){
+        const { data, code } = res.data
+        if(code === 0){
+          // 如果本地存储有推荐人，则使用本地的推荐人
+          const recommender = wx.getStorageSync('recommender')
+          const recommenderObj = null
+          self.setData({
+            recommenders: data.map((item)=> {
+              item.label = item.name
+              item.value = item.sort
+              if(recommender && recommender.sort === item.sort){
+                recommenderObj = item
+              }
+              return item
+            }),
+          })
+          if(recommender){
+            self.setData({
+              'locationState.recommender': recommenderObj.sort,
+              'locationState.recommenderName': recommenderObj.name,
+            })
+          }
         }
       },
       fail(error){
@@ -503,5 +535,15 @@ Page({
         }
       });
     }
+  },
+  showPreview(){
+    this.setData({
+      previewVisible: true
+    })
+  },
+  onPreviewClose(){
+    this.setData({
+      previewVisible: false
+    })
   }
 });

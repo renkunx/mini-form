@@ -101,12 +101,21 @@
         <t-button size="large" theme="primary" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 提交 </t-button>
       </view>
     </form>
-    <view class="contact">
+    <view class="contact" bind:tap="showPreview">
       <t-image shape="round" src="{{contactUrl}}" width="150" height="150" />
       <view class="divider-line" />
       <view>XX银行装修分期咨询 （扫描添加专属客户经理）</view>
     </view>
   </view>
+  <t-image-viewer
+    usingCustomNavbar
+    deleteBtn="{{deleteBtn}}"
+    closeBtn="{{closeBtn}}"
+    showIndex="{{showIndex}}"
+    visible="{{previewVisible}}"
+    images="{{[contactUrl]}}"
+    bind:close="onPreviewClose"
+  ></t-image-viewer>
   <t-cascader
     data-item="address"
     data-type="1"

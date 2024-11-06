@@ -25,7 +25,7 @@ Page({
     typeVisible: false,
     genderMap: ['', '男', '女'],
   },
-  onLoad() {
+  onShow(){
     this.init();
   },
   init() {
