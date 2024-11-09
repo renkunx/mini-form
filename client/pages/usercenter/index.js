@@ -65,7 +65,7 @@ Page({
   init() {
     if(this.data.logged || app.globalData.logged){
       this.setData({
-        userInfo: app.globalData.userInfo || wx.getStorageSync('userInfo')
+        userInfo: wx.getStorageSync('userInfo')
       })
     } else {
       this.loginWX();
@@ -222,6 +222,7 @@ Page({
       method: 'GET',
       success: (res) => {
         const {code, data} = res.data
+        data.avatarUrl = data.avatarUrl || 'https://i.haidao.tech/mini-form%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A6%96%E9%A1%B5/avatar.jpg'
         this.setData({
           userInfo: data,
           logged: true,

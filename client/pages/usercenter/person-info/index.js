@@ -10,6 +10,7 @@ Page({
       nickname: '',
       gender: 0,
       phoneNumber: '',
+      open_id:''
     },
     showUnbindConfirm: false,
     pickerOptions: [
@@ -40,10 +41,13 @@ Page({
         const response = res.data
         if (response.code === 0) {
           this.setData({
-            'personInfo.avatarUrl': response.data.avatarUrl,
+            'personInfo.avatarUrl': response.data.avatarUrl || 'https://i.haidao.tech/mini-form%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A6%96%E9%A1%B5/avatar.jpg',
             'personInfo.nickname': response.data.nickname,
             'personInfo.gender': response.data.gender,
             'personInfo.phoneNumber': phoneEncryption(response.data.phone || ''),
+            'personInfo.open_id': response.data.open_id || ''
+          },()=>{
+            wx.setStorageSync('userInfo', this.data.personInfo)
           });
         } else {
           Toast({
@@ -103,6 +107,7 @@ Page({
   },
   onConfirm(e) {
     const { value } = e.detail;
+    const self = this
     this.setData(
       {
         typeVisible: false,
@@ -116,6 +121,7 @@ Page({
             gender: value,
           },
           success: () => {
+            wx.setStorageSync('userInfo', self.data.personInfo)
             Toast({
               context: this,
               selector: '#t-toast',
@@ -172,33 +178,13 @@ Page({
     }
   },
   onChooseAvatar(e) {
-    const { avatarUrl } = e.detail 
+    const { avatarUrl } = e.detail
     this.setData({
       'personInfo.avatarUrl': avatarUrl,
     },()=>{
-      doRequest({
-        url: config.service.userUrl,
-        method: 'POST',
-        data: {
-          avatarUrl: avatarUrl,
-        },
-        success: () => {
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: `设置成功`,
-            theme: 'success',
-          });
-        },
-        fail: (error) => {
-          Toast({
-            context: this,
-            selector: '#t-toast',
-            message: error.errMsg || error.msg || '设置手机号出错了',
-            theme: 'error',
-          });
-        },
-      });
+      // 微信上传图片
+      this.uploadAvatar(avatarUrl)
+      wx.setStorageSync('userInfo', this.data.personInfo)
     })
   },
   getPhoneNumber (e) {  // 动态令牌
@@ -247,5 +233,52 @@ Page({
         }
       });
     }
+  },
+  uploadAvatar(avatarUrl) {
+    wx.uploadFile({
+      url: config.service.uploadSingleUrl, // 替换为您的服务器上传 URL
+      filePath: avatarUrl,
+      name: 'file', // 服务器接收文件的字段名
+      success: (res) => {
+        console.log('上传成功', res);
+        const data = JSON.parse(res.data);
+        if (data.code === 0) {
+          doRequest({
+            url: config.service.userUrl,
+            method: 'POST',
+            data: {
+              avatarUrl: data.path,
+            },
+            success: () => {
+              Toast({
+                context: this,
+                selector: '#t-toast',
+                message: `设置成功`,
+                theme: 'success',
+              });
+            },
+            fail: (error) => {
+              Toast({
+                context: this,
+                selector: '#t-toast',
+                message: error.errMsg || error.msg || '设置手机号出错了',
+                theme: 'error',
+              });
+            },
+          });
+        } else {
+          wx.showToast({
+            title: '上传失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: () => {
+        wx.showToast({
+          title: '上传失败',
+          icon: 'none'
+        });
+      }
+    });
   }
 });

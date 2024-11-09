@@ -1,6 +1,6 @@
 <view class="person-info">
-  <t-button t-class="t-avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" style="width: 100%;">
-    <t-avatar image="{{personInfo.avatarUrl}}" size="large" />
+  <t-button t-class="t-avatar-button" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" style="width: 100%;">
+    <t-avatar image="{{personInfo.avatarUrl}}" class="user-center-card__header__avatar" size="large" />
   </t-button>
   <t-cell-group>
     <t-cell

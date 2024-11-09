@@ -22,8 +22,12 @@ var config = {
         // 测试的信道服务地址
         tunnelUrl: `${host}/weapp/tunnel`,
 
-        // 上传图片接口
+        // 上传图片接口cos
         uploadUrl: `${host}/weapp/upload`,
+        // 上传图片接口local 单文件
+        uploadSingleUrl: `${host}/weapp/upload-local-single`,
+        // 上传图片接口local 多文件
+        uploadMultipleUrl: `${host}/weapp/upload-local-multiple`,
 
         // 保存表单 post 获取 get
         saveFormUrl: `${host}/weapp/info`,
