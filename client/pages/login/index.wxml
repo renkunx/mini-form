@@ -1,0 +1,30 @@
+<view class="login-container">
+  <view class="header">
+    <t-image t-class="logo" src="{{logo}}"/>
+    <view class="title">欢迎使用蝴蝶饰界</view>
+  </view>
+
+  <view class="content">
+    <t-button 
+      t-class="login-btn"
+      open-type="getPhoneNumber" 
+      bindgetphonenumber="getPhoneNumber"
+      theme="primary" size="large" block
+      icon="logo-wechat" content="手机号快捷登录"
+      disabled="{{!!!checked}}"
+    >
+    </t-button>
+  </view>
+
+  <view class="footer">
+    <t-checkbox value="{{checked}}" bind:change="onCheckChange" borderless t-class-label="checkbox-label">
+    </t-checkbox>
+    <view>
+      <view class="agreement-link" bind:tap="viewAgreement">《小程序隐私保护指引》</view>
+      帮助您了解我们使用的个人信息情况，您需要充分阅读并理解协议内容，若您同意请勾选并登录使用。
+    </view>
+    
+  </view>
+</view>
+
+<t-toast id="t-toast" /> 

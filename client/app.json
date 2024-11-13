@@ -9,7 +9,8 @@
     "pages/404/index",
     "pages/usercenter/person-info/index",
     "pages/usercenter/name-edit/index",
-    "pages/store/store"
+    "pages/store/store",
+    "pages/login/index"
   ],
   "tabBar": {
     "custom": true,

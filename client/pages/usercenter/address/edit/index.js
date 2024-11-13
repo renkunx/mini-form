@@ -57,8 +57,8 @@ Page({
         title: '请先登录',
       })
       // 跳转登录
-      wx.switchTab({
-        url: '/pages/usercenter/index',
+      wx.navigateTo({
+        url: '/pages/login/index',
       })
     }
   },
@@ -74,8 +74,8 @@ Page({
         title: '请先登录',
       })
       // 跳转登录
-      wx.switchTab({
-        url: '/pages/usercenter/index',
+      wx.navigateTo({
+        url: '/pages/login/index',
       })
     }
     // 获取推荐商户

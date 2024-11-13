@@ -1,0 +1,60 @@
+.login-container {
+  padding: 48rpx;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 96rpx);
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  margin: 80rpx 0;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.logo {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 24rpx;
+  background-size: cover;
+  background-position: center;
+}
+
+.title {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-btn {
+  margin: 48rpx auto;
+  background: #07c160;
+  color: #fff;
+}
+
+.footer {
+  text-align: left;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.agreement-link {
+  color: #0052d9;
+  display: inline-block;
+}
+
+.checkbox-label {
+  width: fit-content;
+}

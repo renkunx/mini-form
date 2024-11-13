@@ -65,11 +65,13 @@ Page({
   init() {
     if(this.data.logged || app.globalData.logged){
       this.setData({
-        userInfo: wx.getStorageSync('userInfo')
+        userInfo: wx.getStorageSync('userInfo'),
+        currAuthStep: 2
       })
-    } else {
-      this.loginWX();
-    }
+    } 
+    // else {
+    //   this.loginWX();
+    // }
   },
 
   onClickCell({
@@ -171,7 +173,9 @@ Page({
         url: '/pages/usercenter/person-info/index'
       });
     } else {
-      this.loginWX()
+      wx.navigateTo({
+        url: '/pages/login/index',
+      })
     }
   },
 
