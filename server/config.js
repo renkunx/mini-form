@@ -6,8 +6,6 @@ const CONF = {
     useQcloudLogin: false,
     // 是否使用腾讯云 cos
     useQcloudCos: false,
-    // 域名配置
-    serverHost: 'https://mp.taiyanggroup.com',
 
     cos: {
         /**
