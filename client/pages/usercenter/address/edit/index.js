@@ -100,7 +100,7 @@ Page({
               districtCode: district_code,
               districtName: district_name,
               name: name,
-              phone: phone,
+              phone: app?.globalData?.userInfo?.phone || phone,
               area: area,
               budget: (budget/10000).toFixed(4),  // 单位为万元
               provinceCode: province_code,
@@ -108,6 +108,12 @@ Page({
               detailAddress:detail_address,
               recommender: recommender,
               recommenderName: recommender_name
+            }
+          })
+        }else {
+          app?.globalData?.userInfo?.phone && self.setData({
+            locationState: {
+              phone: app?.globalData?.userInfo?.phone || phone,
             }
           })
         }
