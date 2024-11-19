@@ -12,6 +12,12 @@ App({
     onLaunch() {
         qcloud.setLoginUrl(config.service.loginUrl);
     },
+    onShow(options) {
+      const { recommender } = options.query
+      if(recommender){
+        wx.setStorageSync('recommender', {sort: Number(recommender)})
+      }
+    },
     globalData: {
       userInfo: null,
       logged: false

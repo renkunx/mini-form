@@ -86,7 +86,7 @@
             t-class="field-text"
             borderless
             data-item="budget"
-            suffix="元"
+            suffix="万元"
             align="right"
             type="number"
             value="{{locationState.budget}}"
@@ -137,7 +137,8 @@
 <t-toast id="t-toast" />
 <t-picker
   visible="{{recommenderVisible}}"
-  value="{{locationState.recommender}}"
+  value="{{[locationState.recommender]}}"
+  default-value="{{[locationState.recommender]}}"
   data-key="recommender"
   title="选择推荐人"
   cancelBtn="取消"

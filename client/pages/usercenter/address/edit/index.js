@@ -102,7 +102,7 @@ Page({
               name: name,
               phone: phone,
               area: area,
-              budget: budget,
+              budget: (budget/10000).toFixed(4),  // 单位为万元
               provinceCode: province_code,
               provinceName: province_name,
               detailAddress:detail_address,
@@ -127,7 +127,7 @@ Page({
         if(code === 0){
           // 如果本地存储有推荐人，则使用本地的推荐人
           const recommender = wx.getStorageSync('recommender')
-          const recommenderObj = null
+          let recommenderObj = null
           self.setData({
             recommenders: data.map((item)=> {
               item.label = item.name
@@ -424,7 +424,7 @@ Page({
         district_code: locationState.districtCode,
         detail_address: locationState.detailAddress,
         area: locationState.area,
-        budget: locationState.budget,
+        budget: locationState.budget*10000,
         recommender_name: locationState.recommenderName,
         recommender: locationState.recommender,
         latitude: locationState.latitude,

@@ -9,6 +9,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "带推荐人参数",
+          "pathName": "pages/home/home",
+          "query": "recommender=2",
+          "launchMode": "default",
+          "scene": 1011
+        },
+        {
           "name": "pages/login/index",
           "pathName": "pages/login/index",
           "query": "",
