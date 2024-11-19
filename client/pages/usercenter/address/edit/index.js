@@ -36,7 +36,7 @@ Page({
     visible: false,
     labelValue: '',
     columns: 3,
-    contactUrl:'https://i.haidao.tech/mini-form%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%A6%96%E9%A1%B5/basicprofile.png',
+    contactUrl:'https://wework.qpic.cn/wwpic3az/679190_PAQD5xcTQjGXCZ2_1731576912/0',
     privateData: {
       verifyTips: '',
     },

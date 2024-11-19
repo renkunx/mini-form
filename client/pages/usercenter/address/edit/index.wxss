@@ -137,3 +137,7 @@ page .divider-line {
   height: 64rpx;
   padding: 12rpx;
 }
+
+.contact-text {
+  word-break: keep-all;
+}

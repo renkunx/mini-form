@@ -101,10 +101,10 @@
         <t-button size="large" theme="primary" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 提交 </t-button>
       </view>
     </form>
-    <view class="contact" bind:tap="showPreview">
-      <t-image shape="round" src="{{contactUrl}}" width="150" height="150" />
+    <view class="contact">
+      <t-image shape="round" show-menu-by-longpress="{{true}}" src="{{contactUrl}}" width="150" height="150" />
       <view class="divider-line" />
-      <view>XX银行装修分期咨询 （扫描添加专属客户经理）</view>
+      <view class="contact-text">长按添加专属客户经理</view>
     </view>
   </view>
   <t-image-viewer
