@@ -90,8 +90,11 @@ Page({
 
   // 查看协议
   viewAgreement() {
-    wx.navigateTo({
-      url: '/pages/404/index'
+    let self = this
+    wx.openPrivacyContract({
+      success(){
+        self.setData({checked:true})
+      }
     })
   },
   loginWX(){

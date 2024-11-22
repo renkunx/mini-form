@@ -47,9 +47,14 @@ Page({
     showIndex: false,
     closeBtn: true,
     deleteBtn: false,
+    showChooseMap: false,
   },
   onShow() {
     this.getTabBar().init();
+    if(this.data.showChooseMap){
+      this.setData({showChooseMap:false})
+      return
+    }
     if(app.globalData.logged){    
       this.init()
     } else {
@@ -102,7 +107,7 @@ Page({
               name: name,
               phone: app?.globalData?.userInfo?.phone || phone,
               area: area,
-              budget: (budget/10000).toFixed(4),  // 单位为万元
+              budget: parseFloat((budget/10000).toFixed(4)),  // 单位为万元
               provinceCode: province_code,
               provinceName: province_name,
               detailAddress:detail_address,
@@ -347,6 +352,7 @@ Page({
 
   onSearchAddress() {
     this.builtInSearch({ code: 'scope.userLocation', name: '地址位置' }).then(() => {
+      this.setData({showChooseMap:true})
       wx.chooseLocation({
         success: (res) => {
           if (res.name) {

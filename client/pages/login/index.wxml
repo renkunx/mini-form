@@ -17,7 +17,7 @@
   </view>
 
   <view class="footer">
-    <t-checkbox value="{{checked}}" bind:change="onCheckChange" borderless t-class-label="checkbox-label">
+    <t-checkbox checked="{{checked}}" bind:change="onCheckChange" borderless t-class-label="checkbox-label">
     </t-checkbox>
     <view>
       <view class="agreement-link" bind:tap="viewAgreement">《小程序隐私保护指引》</view>
