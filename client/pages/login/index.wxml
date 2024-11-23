@@ -10,7 +10,7 @@
       open-type="getPhoneNumber" 
       bindgetphonenumber="getPhoneNumber"
       theme="primary" size="large" block
-      icon="logo-wechat" content="手机号快捷登录"
+      content="手机号快捷登录"
       disabled="{{!!!checked}}"
     >
     </t-button>
