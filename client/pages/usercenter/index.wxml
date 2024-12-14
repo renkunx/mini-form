@@ -42,3 +42,13 @@
   </view>
 </t-popup>
 <t-toast id="t-toast" />
+<t-dialog
+  visible="{{showQr}}"
+  t-class="dialog-wrapper"
+  title="提示"
+  content="长按添加专属客户经理 👇"
+  confirm-btn="关闭"
+  bind:confirm="closeDialog"
+>
+  <t-image slot="middle" shape="round" show-menu-by-longpress="{{true}}" src="{{qrUrl}}" width="150" height="150" />
+</t-dialog>

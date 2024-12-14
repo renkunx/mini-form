@@ -4,43 +4,6 @@ var qcloud = require('wafer2-client-sdk/index');
 const { showBusy, showModel, showSuccess, doRequest } = require('../../utils/utils')
 import config from '../../config'
 const app = getApp()
-const menuData = [
-  [
-    {
-      title: '历史提交',
-      tit: '',
-      url: '',
-      type: 'history',
-    }, 
-    {
-      title: '客户经理',
-      tit: '',
-      url: '',
-      type: 'history',
-    }, 
-  ],
-  [
-    // {
-    //   title: '清除缓存',
-    //   tit: '',
-    //   url: '',
-    //   type: 'clear-storage',
-    // },
-    {
-      title: '帮助中心',
-      tit: '',
-      url: '',
-      type: 'help-center',
-    },
-    {
-      title: '客服热线',
-      tit: '',
-      url: '',
-      type: 'service',
-      icon: 'service',
-    },
-  ],
-];
 
 const getDefaultData = () => ({
   showMakePhone: false,
@@ -49,14 +12,38 @@ const getDefaultData = () => ({
     nickName: '正在登录...',
     phoneNumber: '',
   },
-  menuData,
+  menuData:[
+    [
+      // {
+      //   title: '清除缓存',
+      //   tit: '',
+      //   url: '',
+      //   type: 'clear-storage',
+      // },
+      {
+        title: '帮助中心',
+        tit: '',
+        url: '',
+        type: 'help-center',
+      },
+      {
+        title: '客服热线',
+        tit: '',
+        url: '',
+        type: 'service',
+        icon: 'service',
+      },
+    ],
+  ],
   customerServiceInfo: {
     serviceTimeDuration: '9:00-18:00'
   },
   currAuthStep: 1,
   showKefu: true,
   versionNo: '',
-  logged: false || app.globalData.logged
+  logged: false || app.globalData.logged,
+  showQr:false,
+  qrUrl:''
 });
 
 Page({
@@ -80,6 +67,7 @@ Page({
         userInfo: wx.getStorageSync('userInfo'),
         currAuthStep: 2
       })
+      this.getForm()
     } 
     // else {
     //   this.loginWX();
@@ -123,6 +111,12 @@ Page({
         wx.navigateTo({
           url: '/pages/usercenter/address/list/index'
         });
+        break;
+      }
+      case 'manager': {
+        this.setData({
+          showQr: true
+        })
         break;
       }
       default: {
@@ -257,5 +251,77 @@ Page({
         });
       },
     });
+  },
+  getForm(){
+    let self = this
+    doRequest({
+      url:config.service.saveFormUrl,
+      method:'GET',
+      data: {
+        user_id: app.globalData.userInfo.open_id,
+      },
+      success(res){
+        if(res.data.code === 0){
+          const { qrUrl } = res.data.data
+          self.setData({
+            qrUrl:qrUrl,
+            menuData: [
+              [
+                {
+                  title: '历史提交',
+                  tit: '',
+                  url: '',
+                  type: 'history',
+                }, 
+                {
+                  title: '客户经理',
+                  tit: '',
+                  url: '',
+                  type: 'manager',
+                }, 
+              ],
+              [
+                {
+                  title: '帮助中心',
+                  tit: '',
+                  url: '',
+                  type: 'help-center',
+                },
+                {
+                  title: '客服热线',
+                  tit: '',
+                  url: '',
+                  type: 'service',
+                  icon: 'service',
+                },
+              ],
+            ]
+          })
+        }else {
+          self.setData({
+            menuData: [
+              [
+                {
+                  title: '帮助中心',
+                  tit: '',
+                  url: '',
+                  type: 'help-center',
+                },
+                {
+                  title: '客服热线',
+                  tit: '',
+                  url: '',
+                  type: 'service',
+                  icon: 'service',
+                },
+              ],
+            ]
+          })
+        }
+      }
+    })
+  },
+  closeDialog(){
+    this.setData({showQr:false})
   }
 });

@@ -457,8 +457,8 @@ Page({
         budget: locationState.budget*10000,
         recommender_name: locationState.recommenderName,
         recommender: locationState.recommender,
-        latitude: locationState.latitude,
-        longitude: locationState.longitude
+        // latitude: locationState.latitude,
+        // longitude: locationState.longitude
       },
       method: 'POST',
       success(res){
