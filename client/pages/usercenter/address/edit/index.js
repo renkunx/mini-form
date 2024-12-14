@@ -36,7 +36,8 @@ Page({
     visible: false,
     labelValue: '',
     columns: 3,
-    contactUrl:'https://wework.qpic.cn/wwpic3az/679190_PAQD5xcTQjGXCZ2_1731576912/0',
+    // contactUrl:'https://wework.qpic.cn/wwpic3az/679190_PAQD5xcTQjGXCZ2_1731576912/0',
+    contactUrl:'',
     privateData: {
       verifyTips: '',
     },
@@ -97,7 +98,7 @@ Page({
       success(res){
         if(res.data.code === 0){
           const {city_code, city_name, district_code, district_name,
-          name, phone, area, budget, province_code, province_name, detail_address, recommender, recommender_name} = res.data.data
+          name, phone, area, budget, province_code, province_name, detail_address, recommender, recommender_name, qrUrl} = res.data.data
           self.setData({
             locationState: {
               cityCode: city_code,
@@ -113,7 +114,8 @@ Page({
               detailAddress:detail_address,
               recommender: recommender,
               recommenderName: recommender_name
-            }
+            },
+            contactUrl: qrUrl
           })
         }else {
           app?.globalData?.userInfo?.phone && self.setData({
