@@ -254,7 +254,7 @@ Page({
   },
 
   onVerifyInputLegal() {
-    const { name, phone, detailAddress, districtName } = this.data.locationState;
+    const { name, phone, detailAddress, districtName, area, budget, recommender_name } = this.data.locationState;
     const prefixPhoneReg = String(this.properties.phoneReg || innerPhoneReg);
     const prefixNameReg = String(this.properties.nameReg || innerNameReg);
     const nameRegExp = new RegExp(prefixNameReg);
@@ -302,6 +302,19 @@ Page({
         tips: '详细地址不能超过50个字符',
       };
     }
+    if (!area){
+      return {
+        isLegal: false,
+        tips: '请填写房屋面积',
+      };
+    }
+    if (!budget){
+      return {
+        isLegal: false,
+        tips: '请填写装修预算',
+      };
+    }
+    
     return {
       isLegal: true,
       tips: '添加成功',
@@ -380,7 +393,6 @@ Page({
                   verifyTips: tips
                 }
               });
-              console.log('this.data.locationState',this.data.locationState)
             });
           } else {
             Toast({
@@ -448,7 +460,8 @@ Page({
         if(code === 0){
           self.setData({
             showPdf: true,
-            pdfUrl: `${config.service.host}/weapp/pdf?fileName=${data.user_id}.pdf`
+            pdfUrl: `${config.service.host}/weapp/pdf?fileName=${data.user_id}.pdf`,
+            contactUrl: data.qrUrl
           })
         }
       },

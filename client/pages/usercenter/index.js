@@ -5,18 +5,28 @@ const { showBusy, showModel, showSuccess, doRequest } = require('../../utils/uti
 import config from '../../config'
 const app = getApp()
 const menuData = [
-  [{
-    title: '历史提交',
-    tit: '',
-    url: '',
-    type: 'history',
-  }, ],
-  [{
-    title: '清除缓存',
-    tit: '',
-    url: '',
-    type: 'clear-storage',
-  },{
+  [
+    {
+      title: '历史提交',
+      tit: '',
+      url: '',
+      type: 'history',
+    }, 
+    {
+      title: '客户经理',
+      tit: '',
+      url: '',
+      type: 'history',
+    }, 
+  ],
+  [
+    // {
+    //   title: '清除缓存',
+    //   tit: '',
+    //   url: '',
+    //   type: 'clear-storage',
+    // },
+    {
       title: '帮助中心',
       tit: '',
       url: '',
@@ -40,7 +50,9 @@ const getDefaultData = () => ({
     phoneNumber: '',
   },
   menuData,
-  customerServiceInfo: {},
+  customerServiceInfo: {
+    serviceTimeDuration: '9:00-18:00'
+  },
   currAuthStep: 1,
   showKefu: true,
   versionNo: '',

@@ -141,3 +141,10 @@ page .divider-line {
 .contact-text {
   word-break: keep-all;
 }
+
+.dialog-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

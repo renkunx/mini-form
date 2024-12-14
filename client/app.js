@@ -17,6 +17,13 @@ App({
       if(recommender){
         wx.setStorageSync('recommender', {sort: Number(recommender)})
       }
+      const userInfo = wx.getStorageSync('userInfo')
+      if(userInfo){
+        this.globalData = {
+          userInfo,
+          logged:true
+        }
+      }
     },
     globalData: {
       userInfo: null,

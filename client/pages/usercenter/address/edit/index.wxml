@@ -58,6 +58,7 @@
               autosize
               bind:change="onInputValue"
               data-item="detailAddress"
+              maxlength="50"
             />
           </view>
         </t-cell>
@@ -101,11 +102,6 @@
         <t-button size="large" theme="primary" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 提交 </t-button>
       </view>
     </form>
-    <view class="contact">
-      <t-image shape="round" show-menu-by-longpress="{{true}}" src="{{contactUrl}}" width="150" height="150" />
-      <view class="divider-line" />
-      <view class="contact-text">长按添加专属客户经理</view>
-    </view>
   </view>
   <t-image-viewer
     usingCustomNavbar
@@ -129,11 +125,14 @@
 </view>
 <t-dialog
   visible="{{showPdf}}"
+  t-class="dialog-wrapper"
   title="提示"
-  content="提交成功👍\npdf文件已生成，点击拷贝复制链接"
-  confirm-btn="复制"
+  content="提交成功👍\npdf文件已生成，点击「确定」复制链接 \n 长按添加专属客户经理 👇"
+  confirm-btn="确定"
   bind:confirm="closeDialog"
-/>
+>
+  <t-image slot="middle" shape="round" show-menu-by-longpress="{{true}}" src="{{contactUrl}}" width="150" height="150" />
+</t-dialog>
 <t-toast id="t-toast" />
 <t-picker
   visible="{{recommenderVisible}}"
