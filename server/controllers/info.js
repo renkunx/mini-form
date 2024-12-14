@@ -1,5 +1,6 @@
 const DB = require('../tools/db');
 const { generatePDF } = require('./pdf')
+const { encrypt } = require('../tools/crypto');
 // 查询 info 表数据
 exports.get = async (ctx) => {
     try {
@@ -21,10 +22,23 @@ exports.get = async (ctx) => {
             };
             return;
         }
+        let resData = null
+        if(user_id){
+            resData = infoData[0]
+            const homeInfo = await DB('home').where('name', resData.
+                recommender_name).select('*').first();
+            const manager = homeInfo.phone
+            const qrUrl = `http://yqw.fft.com.cn/nbback/qwmsg/genKFQRCode?name=${encodeURIComponent(resData.name)}&phone=${encrypt(resData.phone)}&manager=${encrypt(homeInfo.phone || '19906920597')}`
+            resData.qrUrl = qrUrl
+            resData.manager = manager
+        }else{
+            resData = infoData
+        }
+        
 
         ctx.body = {
             code: 0,
-            data: user_id ? infoData[0] : infoData,
+            data: resData,
             message: '成功获取信息'
         };
     } catch (error) {
@@ -60,18 +74,21 @@ exports.upsert = async (ctx) => {
 
         // 根据数据生成pdf文件
         generatePDF('form',{ user_id, ...infoData }, user_id.substr(5));
+        const homeInfo = await DB('home').where('name', infoData.
+            recommender_name).select('*').first();
+        const qrUrl = `http://yqw.fft.com.cn/nbback/qwmsg/genKFQRCode?name=${encodeURIComponent(infoData.name)}&phone=${encrypt(infoData.phone)}&manager=${encrypt(homeInfo.phone || '19906920597')}`
         if (updatedRows === 0) {
             // 如果没有更新任何行，则插入新记录
             await DB('info').insert({ user_id, ...infoData });
             ctx.body = {
                 code: 0,
-                data: { user_id },
+                data: { user_id, qrUrl },
                 message: '成功插入新信息'
             };
         } else {
             ctx.body = {
                 code: 0,
-                data: { user_id },
+                data: { user_id, qrUrl },
                 message: '成功更新信息'
             };
         }
