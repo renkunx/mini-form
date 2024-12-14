@@ -139,20 +139,26 @@ Page({
           // 如果本地存储有推荐人，则使用本地的推荐人
           const recommender = wx.getStorageSync('recommender')
           let recommenderObj = null
+          let recommenders = data.map((item)=> {
+            item.label = item.name
+            item.value = item.sort
+            if(recommender && recommender.sort === item.sort){
+              recommenderObj = item
+            }
+            return item
+          })
           self.setData({
-            recommenders: data.map((item)=> {
-              item.label = item.name
-              item.value = item.sort
-              if(recommender && recommender.sort === item.sort){
-                recommenderObj = item
-              }
-              return item
-            }),
+            recommenders
           })
           if(recommender){
             self.setData({
               'locationState.recommender': recommenderObj.sort,
               'locationState.recommenderName': recommenderObj.name,
+            })
+          } else {
+            recommenders[0] && self.setData({
+              'locationState.recommender': recommenders[0].sort,
+              'locationState.recommenderName': recommenders[0].name,
             })
           }
         }
@@ -302,13 +308,13 @@ Page({
         tips: '详细地址不能超过50个字符',
       };
     }
-    if (!area){
+    if (!area || !Number(area) || Number(area) == 0){
       return {
         isLegal: false,
         tips: '请填写房屋面积',
       };
     }
-    if (!budget){
+    if (!budget || !Number(budget) || Number(budget) == 0){
       return {
         isLegal: false,
         tips: '请填写装修预算',
@@ -364,8 +370,8 @@ Page({
   },
 
   onSearchAddress() {
+    this.setData({showChooseMap:true})
     this.builtInSearch({ code: 'scope.userLocation', name: '地址位置' }).then(() => {
-      this.setData({showChooseMap:true})
       wx.chooseLocation({
         success: (res) => {
           if (res.name) {
@@ -456,13 +462,15 @@ Page({
       },
       method: 'POST',
       success(res){
-        const { code, data } = res.data
+        const { code, data, message } = res.data
         if(code === 0){
           self.setData({
             showPdf: true,
             pdfUrl: `${config.service.host}/weapp/pdf?fileName=${data.user_id}.pdf`,
             contactUrl: data.qrUrl
           })
+        } else {
+          showModel('提示', message)
         }
       },
       fail(error){
