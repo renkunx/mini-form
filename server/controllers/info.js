@@ -28,7 +28,7 @@ exports.get = async (ctx) => {
             const homeInfo = await DB('home').where('name', resData.
                 recommender_name).select('*').first();
             const manager = homeInfo.phone
-            const qrUrl = `http://yqw.fft.com.cn/nbback/qwmsg/genKFQRCode?name=${encodeURIComponent(resData.name)}&phone=${encrypt(resData.phone)}&manager=${encrypt(homeInfo.phone || '19906920597')}`
+            const qrUrl = `https://yqw.fft.com.cn/nbback/qwmsg/genKFQRCode?name=${encodeURIComponent(resData.name)}&phone=${encrypt(resData.phone)}&manager=${encrypt(homeInfo.phone || '19906920597')}`
             resData.qrUrl = qrUrl
             resData.manager = manager
         }else{
@@ -76,7 +76,7 @@ exports.upsert = async (ctx) => {
         generatePDF('form',{ user_id, ...infoData }, user_id.substr(5));
         const homeInfo = await DB('home').where('name', infoData.
             recommender_name).select('*').first();
-        const qrUrl = `http://yqw.fft.com.cn/nbback/qwmsg/genKFQRCode?name=${encodeURIComponent(infoData.name)}&phone=${encrypt(infoData.phone)}&manager=${encrypt(homeInfo.phone || '19906920597')}`
+        const qrUrl = `https://yqw.fft.com.cn/nbback/qwmsg/genKFQRCode?name=${encodeURIComponent(infoData.name)}&phone=${encrypt(infoData.phone)}&manager=${encrypt(homeInfo.phone || '19906920597')}`
         if (updatedRows === 0) {
             // 如果没有更新任何行，则插入新记录
             await DB('info').insert({ user_id, ...infoData });
