@@ -121,7 +121,7 @@ page .divider-line {
 
 .contact {
   text-align: center;
-  width: 350rpx;
+  width: 690rpx;
   margin: 0 auto;
   color: #999999;
 }

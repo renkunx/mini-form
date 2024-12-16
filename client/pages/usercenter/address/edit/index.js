@@ -523,6 +523,54 @@ Page({
         })
       }
     })
+    
+    // 先下载图片到本地临时文件
+    wx.downloadFile({
+      url: this.data.contactUrl,
+      success(res) {
+        // 下载成功后的临时路径
+        const tempFilePath = res.tempFilePath
+        // 保存图片到相册
+        wx.saveImageToPhotosAlbum({
+          filePath: tempFilePath,
+          success() {
+            wx.showToast({
+              title: '二维码已保存到相册',
+              icon: 'success',
+              duration: 2000
+            });
+          },
+          fail(res) {
+            console.log('保存失败:', res)
+            // 判断是否是因为用户拒绝授权导致的
+            if (res.errMsg.indexOf('auth deny') > -1) {
+              wx.showModal({
+                title: '提示',
+                content: '需要您授权保存图片到相册',
+                success(modalRes) {
+                  if (modalRes.confirm) {
+                    // 打开设置页面
+                    wx.openSetting()
+                  }
+                }
+              })
+            } else {
+              // wx.showToast({
+              //   title: '保存失败',
+              //   icon: 'none'
+              // })
+            }
+          }
+        })
+      },
+      fail(error) {
+        console.log('下载图片失败:', error)
+        // wx.showToast({
+        //   title: '图片下载失败',
+        //   icon: 'none'
+        // })
+      }
+    })
   },
   getPhoneNumber (e) {  // 动态令牌
     let self = this
