@@ -58,6 +58,9 @@ Page({
     }
     if(app.globalData.logged){    
       this.init()
+      this.setData({
+        'locationState.phone':app?.globalData?.userInfo?.phone || ''
+      })
     } else {
       wx.showToast({
         title: '请先登录',
@@ -89,7 +92,7 @@ Page({
   },
   getForm(){
     let self = this
-    doRequest({
+    app.globalData?.userInfo?.open_id && doRequest({
       url:config.service.saveFormUrl,
       method:'GET',
       data: {
@@ -525,11 +528,15 @@ Page({
     })
     
     // 先下载图片到本地临时文件
+    var filename = new Date().getTime()+".png";
+    var savePath = wx.env.USER_DATA_PATH+"/"+filename
     wx.downloadFile({
+      // header:'content-type: image/png',
       url: this.data.contactUrl,
+      filePath:savePath,
       success(res) {
         // 下载成功后的临时路径
-        const tempFilePath = res.tempFilePath
+        const tempFilePath = res.filePath
         // 保存图片到相册
         wx.saveImageToPhotosAlbum({
           filePath: tempFilePath,
@@ -555,20 +562,20 @@ Page({
                 }
               })
             } else {
-              // wx.showToast({
-              //   title: '保存失败',
-              //   icon: 'none'
-              // })
+              wx.showToast({
+                title: '保存失败',
+                icon: 'none'
+              })
             }
           }
         })
       },
       fail(error) {
         console.log('下载图片失败:', error)
-        // wx.showToast({
-        //   title: '图片下载失败',
-        //   icon: 'none'
-        // })
+        wx.showToast({
+          title: '图片下载失败',
+          icon: 'none'
+        })
       }
     })
   },

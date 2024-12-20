@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    url:'https://work.weixin.qq.com/kfid/kfc09a5e6f2f218adb3?enc_scene=ENC8yCsZWZ4ReajMSFKvPRhJ6EfyxjKvRyiL4gGHQxwjxwi&scene_param=18629080248'
   },
 
   /**

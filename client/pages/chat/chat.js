@@ -62,5 +62,17 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  gotoChat(){
+    wx.openCustomerServiceChat({
+      extInfo: {url: 'https://work.weixin.qq.com/kfid/kfc067172d7fbd9aaa6?enc_scene=ENC8yCsZWZ4ReajMSFKvPRhJ6EfyxjKvRyiL4gGHQxwjxwi&scene_param=18629080248'},
+      corpId: 'ww5ef032b42267ba08',
+      success(res) {
+        console.log(res)
+      },
+      fail(error){
+        console.error(error)
+      }
+    })    
   }
 })

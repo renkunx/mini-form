@@ -1,2 +1,1 @@
-<!--pages/store.wxml-->
-<text>pages/store.wxml</text>
+<web-view src="{{url}}" />

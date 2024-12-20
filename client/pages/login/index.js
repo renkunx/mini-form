@@ -77,6 +77,10 @@ Page({
               },
               success: () => {
                 app.globalData.logged = true
+                let userInfo = app.globalData.userInfo
+                userInfo.phone = phoneNumber
+                app.globalData.userInfo = userInfo
+                wx.setStorageSync('userInfo', userInfo)
                 wx.navigateBack({
                   delta: 1
                 })
