@@ -13,15 +13,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            padding: 24px;
         }
         .card {
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 100%;
-            max-width: 540px;
+            max-width: 100%;
         }
         h1 {
             color: #333;
@@ -36,10 +35,12 @@
         .label {
             font-weight: bold;
             color: #555;
+            white-space: nowrap;
         }
         .value {
             text-align: right;
             color: #333;
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -55,8 +56,12 @@
             <span class="value">{{phone}}</span>
         </div>
         <div class="info-item">
-            <span class="label">家庭住址：</span>
-            <span class="value">{{province_name}}{{city_name}}{{district_name}}{{detail_address}}</span>
+            <span class="label">地区：</span>
+            <span class="value">{{province_name}}{{city_name}}{{district_name}}</span>
+        </div>
+        <div class="info-item">
+            <span class="label">详细住址：</span>
+            <span class="value">{{detail_address}}</span>
         </div>
         <div class="info-item">
             <span class="label">房屋面积：</span>
@@ -69,6 +74,10 @@
         <div class="info-item">
             <span class="label">推荐人：</span>
             <span class="value">{{recommender_name}}</span>
+        </div>
+        <div class="info-item">
+            <span class="label">进件编号：</span>
+            <span class="value">{{no}}</span>
         </div>
     </div>
 </body>

@@ -72,7 +72,10 @@ exports.upsert = async (ctx) => {
             .update(infoData)
 
         // 根据数据生成pdf文件
-        generatePDF('form', { user_id, ...infoData }, user_id.substr(5))
+        const merChant = await DB('home').where('name', infoData.recommender_name).select('*').first()
+        // 获取当天 年月日+ty24000001+手机号后六位
+        let no = `${String(new Date().getFullYear()).substr(-2)}${new Date().getMonth() + 1}${new Date().getDate()}${merChant.desc}${infoData.phone.slice(-6)}`
+        generatePDF('form', { user_id, ...infoData, no }, user_id.substr(5))
         const homeInfo = await DB('home').where('name', infoData
             .recommender_name).select('*').first()
         const qrUrl = `https://yqw.fft.com.cn/nbback/qwmsg/genKFQRCode?name=${encodeURIComponent(infoData.name)}&phone=${encrypt(infoData.phone)}&manager=${encrypt(homeInfo.phone || '19906920597')}`
